@@ -11,6 +11,6 @@ Copyed some of the code from my other project: game-box
 ## Todo
  - have a menu and separate files for games
 ## Pictures
-<img src="https://raw.githubusercontent.com/Marcell-Puskas/matrix-boy/main/images/game_snake.jpg">
-<img src="https://raw.githubusercontent.com/Marcell-Puskas/matrix-boy/main/images/menu_snake.jpg">
-<img src="https://raw.githubusercontent.com/Marcell-Puskas/matrix-boy/main/images/menu_tetris.jpg">
+<img src="https://raw.githubusercontent.com/Marcell-Puskas/matrix-boy/master/images/game_snake.jpg">
+<img src="https://raw.githubusercontent.com/Marcell-Puskas/matrix-boy/master/images/menu_snake.jpg">
+<img src="https://raw.githubusercontent.com/Marcell-Puskas/matrix-boy/master/images/menu_tetris.jpg">
