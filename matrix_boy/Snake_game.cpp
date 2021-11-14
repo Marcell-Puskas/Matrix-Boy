@@ -33,6 +33,8 @@ void Snake_game()
     bool gameover = false;
     char keyc = 'd';
 
+    memset(age_map, 0, sizeof(age_map));
+
     while (runing && !gameover)
     {
         //controlls
@@ -160,12 +162,31 @@ void Snake_game()
             if(analogRead(JOYY) > 640) dir_input = 2;
             if(analogRead(JOYY) < 384) dir_input = 3;
 
-            if(analogRead(JOYB) == 0)
+            if(digitalRead(JOYB) == 0)
             {
-                for (size_t i = 0; i < 200 && analogRead(JOYB) == 0; i++)
-                    delay(10);
-                if(analogRead(JOYB) == 0) runing = false;
+                if(timeout_b == 0)
+                {
+                    for (size_t i = 0; i < 200 && digitalRead(JOYB) == 0; i++)
+                        delay(input_update);
+                    
+                    if(digitalRead(JOYB) == 0)
+                    {
+                        runing = false;
+                        timeout_b = restart_timeout;
+                    }
+                    else
+                    {
+                        matrix.drawRect(1, 4, 2, 8, pause_color);
+                        matrix.drawRect(5, 4, 2, 8, pause_color);
+                        matrix.show();
+                        while (digitalRead(JOYB) == 1)
+                            delay(input_update);
+                        
+                        timeout_b = default_timeout;
+                    }
+                }
             }
+            else timeout_b = 0;
             delay(10);
         }
     }

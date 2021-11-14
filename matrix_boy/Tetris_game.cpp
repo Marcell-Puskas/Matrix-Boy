@@ -8,10 +8,8 @@ const int mapx = 8;
 const int mapy = 16;
 const int tetro_num = 7;
 const int mino_num = 4;
-const int input_update = 10;
 const int clear_time = 400;
 const int score_time = 2000;
-const int default_timeout = 10;
 const int down_timeout = 3;
 const int up_timeout = 14;
 
@@ -47,7 +45,6 @@ const uint32_t tetro_colors[] = {
 
 const uint32_t background_color = matrix.Color(0, 0, 0);
 const uint32_t full_line_color = matrix.Color(255, 255, 255);
-const uint32_t pause_color = matrix.Color(255, 255, 255);
 
 bool run, gameover;
 
@@ -271,6 +268,7 @@ void Check_full_line()
             
             lines_to_clear = true;
             points++;
+            speed = 10 + 40 / points;
 
             for (size_t copyy = cline; copyy >= 1; copyy--)
                     for (size_t copyx = 0; copyx < mapx; copyx++)
