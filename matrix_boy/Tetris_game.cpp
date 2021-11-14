@@ -14,7 +14,6 @@ const int score_time = 2000;
 const int default_timeout = 10;
 const int down_timeout = 3;
 const int up_timeout = 14;
-const int restart_timeout = 50;
 
 const int tetro_cordinates[][4][2] = {
     {{0, 1}, {1, 1}, {2, 1}, {3, 1}},

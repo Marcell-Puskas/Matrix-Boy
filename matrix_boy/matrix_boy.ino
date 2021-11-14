@@ -99,7 +99,14 @@ void loop() {
 
     if(analogRead(JOYX) > 640) keychar = 'd';
     if(analogRead(JOYX) < 384) keychar = 'a';
-    if(digitalRead(JOYB) == 0) if(timeout_b == 0) keychar = 'o';
+    if(digitalRead(JOYB) == 0)
+    {
+        if(timeout_b == 0)
+        {
+            keychar = 'o';
+            timeout_b = restart_timeout;
+        }
+    }
     else timeout_b = 0;
 
     delay(10);

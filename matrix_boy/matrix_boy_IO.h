@@ -16,4 +16,6 @@ extern char keychar;
 
 extern int timeout_x, timeout_y, timeout_b;
 
+const int restart_timeout = 50;
+
 #endif

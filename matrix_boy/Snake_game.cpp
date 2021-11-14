@@ -41,38 +41,19 @@ void Snake_game()
             keyc = Serial.read();
             switch (keyc)
             {
-            case 'd':
-                dir_input = 0;
-                break;
-            case 'a':
-                dir_input = 1;
-                break;
-            case 's':
-                dir_input = 2;
-                break;
-            case 'w':
-                dir_input = 3;
-                break;
+                case 'd': dir_input = 0; break;
+                case 'a': dir_input = 1; break;
+                case 's': dir_input = 2; break;
+                case 'w': dir_input = 3; break;
             }
         }
 
         switch (dir_input)
         {
-            case 0:
-                if (dir != 1) dir = 0;
-                break;
-
-            case 1:
-                if (dir != 0) dir = 1;
-                break;
-
-            case 2:
-                if (dir != 3) dir = 2;
-                break;
-
-            case 3:
-                if (dir != 2) dir = 3;
-                break;
+            case 0: if (dir != 1) dir = 0; break;
+            case 1: if (dir != 0) dir = 1; break;
+            case 2: if (dir != 3) dir = 2; break;
+            case 3: if (dir != 2) dir = 3; break;
         }
 
         if(screen_warp)
