@@ -2,32 +2,8 @@
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
 
-#define JOYX A0
-#define JOYY A1
-#define JOYB 9
+#include "matrix_boy_IO.h"
 
-int joy_x = 0;
-int joy_y = 0;
-int joy_button = 0;
-
-int matrixWidth = 8;
-int matrixHeight = 8;
-int tilesX = 1;
-int tilesY = 2;
-int pin = 6;
-int matrixType = NEO_TILE_TOP;
-int ledType = NEO_GRB;
-
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(
-    matrixWidth, matrixHeight, tilesX, tilesY, pin, matrixType, ledType);
-
-void setup() {
-    matrix.begin();
-    matrix.setBrightness(1);
-    Serial.begin(9600);
-}
-
-//config
 const int mapx = 8;
 const int mapy = 16;
 const int tetro_num = 7;
@@ -76,18 +52,13 @@ const uint32_t pause_color = matrix.Color(255, 255, 255);
 
 bool run, gameover;
 
-int posx, posy, dir, selected_index, points, speed, timeout_x, timeout_y, timeout_b;
+int posx, posy, dir, selected_index, points, speed;
 
-char keychar, movechar;
+char movechar;
 
 int selected_tetro[mino_num][2];
 int construncted_tetro[mino_num][2];
 int stack_map[mapx][mapy];
-
-void loop()
-{
-    Tetris_game();
-}
 
 void Construct_tetro(int cdir, bool select = false)
 {
@@ -161,6 +132,22 @@ void Screen_print()
     }
 
     matrix.show();
+}
+
+bool check_move(int nextX, int nextY, int nextDir)
+{
+    Construct_tetro(nextDir);
+    for(int cmino = 0; cmino < mino_num; cmino++)
+    {
+        if(nextX + construncted_tetro[cmino][0] >= mapx) return false;
+        if(nextX + construncted_tetro[cmino][0] < 0) return false;
+        if(nextY + construncted_tetro[cmino][1] >= mapy) return false;
+        if(nextY + construncted_tetro[cmino][1] < 0) return false;
+
+        if(stack_map[ nextX + construncted_tetro[cmino][0] ][ nextY + construncted_tetro[cmino][1] ] != 0)
+            return false;
+    }
+    return true;
 }
 
 void Key_get()
@@ -267,22 +254,6 @@ void Key_get()
 
         delay(input_update);
     }
-}
-
-bool check_move(int nextX, int nextY, int nextDir)
-{
-    Construct_tetro(nextDir);
-    for(int cmino = 0; cmino < mino_num; cmino++)
-    {
-        if(nextX + construncted_tetro[cmino][0] >= mapx) return false;
-        if(nextX + construncted_tetro[cmino][0] < 0) return false;
-        if(nextY + construncted_tetro[cmino][1] >= mapy) return false;
-        if(nextY + construncted_tetro[cmino][1] < 0) return false;
-
-        if(stack_map[ nextX + construncted_tetro[cmino][0] ][ nextY + construncted_tetro[cmino][1] ] != 0)
-            return false;
-    }
-    return true;
 }
 
 void Check_full_line()

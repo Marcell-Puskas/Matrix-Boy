@@ -1,7 +1,0 @@
-{
-    "port": "COM11",
-    "configuration": "cpu=atmega328old",
-    "board": "arduino:avr:nano",
-    "programmer": "arduino:avrispmkii",
-    "sketch": "matrix_serial_test.ino"
-}

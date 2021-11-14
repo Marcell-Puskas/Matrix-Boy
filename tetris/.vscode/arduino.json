@@ -1,7 +1,0 @@
-{
-    "sketch": "matrix_boy_tetris.ino",
-    "board": "arduino:avr:nano",
-    "port": "COM11",
-    "programmer": "arduino:avrispmkii",
-    "configuration": "cpu=atmega328old"
-}
