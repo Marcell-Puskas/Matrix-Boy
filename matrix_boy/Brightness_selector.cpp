@@ -62,7 +62,7 @@ void Brightness_selector()
         }
         keychar2 = NULL;
 
-        matrix.setBrightness(map(bright, 1, max_bright, 1, max_bright));
+        matrix.setBrightness(bright);
 
         matrix.clear();
         matrix.setCursor(0, 0);

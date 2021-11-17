@@ -7,11 +7,12 @@
 #include "Snake_game.h"
 #include "Tetris_game.h"
 #include "Breakout_game.h"
+#include "Egg_game.h"
 #include "Brightness_selector.h"
 
 
 //static const 
-const int game_count = 5;
+const int game_count = 6;
 const int anim_speed = 25;
 int selected = 0;
 char keychar;
@@ -32,13 +33,11 @@ const int ledType = NEO_GRB;
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(
     matrixWidth, matrixHeight, tilesX, tilesY, pin, matrixType, ledType);
 
-
-
 void call_game(int game_index) {
     switch (game_index)
     {
         case 0:
-        Snake_game();
+        //Snake_game();
         break;
 
         case 1:
@@ -50,6 +49,10 @@ void call_game(int game_index) {
         break;
 
         case 4:
+        Egg_game();
+        break;
+
+        case 5:
         Brightness_selector();
         break;
     }
@@ -73,30 +76,24 @@ void loop() {
     switch (keychar)
     {
         case 'a':
-        if(selected > 0)
+        selected = (selected - 1 + game_count) % game_count;
+        for (size_t i = 0; i < matrixWidth; i++)
         {
-            selected--;
-            for (size_t i = 0; i < matrixWidth; i++)
-            {
-                matrix.drawRGBBitmap(i, 0, (bmps[selected+1]), 8, 16);
-                matrix.drawRGBBitmap(-matrixWidth+i, 0, (bmps[selected]), 8, 16);
-                matrix.show();
-                delay(anim_speed);
-            }
+            matrix.drawRGBBitmap(i, 0, (bmps[ (selected + 1 + game_count) % game_count ]), 8, 16);
+            matrix.drawRGBBitmap(-matrixWidth+i, 0, (bmps[selected]), 8, 16);
+            matrix.show();
+            delay(anim_speed);
         }
         break;
 
         case 'd':
-        if(selected + 1 < game_count)
+        selected = (selected + 1 + game_count) % game_count;
+        for (size_t i = 0; i < matrixWidth; i++)
         {
-            selected++;
-            for (size_t i = 0; i < matrixWidth; i++)
-            {
-                matrix.drawRGBBitmap(-i, 0, (bmps[selected-1]), 8, 16);
-                matrix.drawRGBBitmap(matrixWidth-i, 0, (bmps[selected]), 8, 16);
-                matrix.show();
-                delay(anim_speed);
-            }
+            matrix.drawRGBBitmap(-i, 0, (bmps[ (selected - 1 + game_count) % game_count ]), 8, 16);
+            matrix.drawRGBBitmap(matrixWidth-i, 0, (bmps[selected]), 8, 16);
+            matrix.show();
+            delay(anim_speed);
         }
         break;
 
@@ -124,4 +121,3 @@ void loop() {
 
     delay(10);
 }
-
