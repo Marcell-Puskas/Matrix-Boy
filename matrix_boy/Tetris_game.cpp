@@ -4,8 +4,6 @@
 
 #include "matrix_boy_IO.h"
 
-const int mapx = 8;
-const int mapy = 16;
 const int tetro_num = 7;
 const int mino_num = 4;
 const int clear_time = 400;

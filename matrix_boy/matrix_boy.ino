@@ -6,13 +6,18 @@
 #include "matrix_boy_image_bmps.h"
 #include "Snake_game.h"
 #include "Tetris_game.h"
+#include "Breakout_game.h"
+#include "Brightness_selector.h"
 
 
 //static const 
-const int game_count = 2;
+const int game_count = 5;
 const int anim_speed = 25;
 int selected = 0;
 char keychar;
+int bright = 2;
+int max_bright_select = 16;
+int max_bright = 64;
 
 int timeout_x, timeout_y, timeout_b = 0;
 
@@ -39,12 +44,20 @@ void call_game(int game_index) {
         case 1:
         Tetris_game();
         break;
+
+        case 2:
+        Breakout_game();
+        break;
+
+        case 4:
+        Brightness_selector();
+        break;
     }
 }
 
 void setup() {
     matrix.begin();
-    matrix.setBrightness(1);
+    matrix.setBrightness(bright);
     Serial.begin(9600);
     Serial.println("MatrixBoy Running");
 }

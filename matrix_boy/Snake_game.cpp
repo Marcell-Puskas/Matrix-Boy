@@ -9,8 +9,6 @@ void Snake_game()
     matrix.clear();
 
     //config
-    const int mapx = 8;
-    const int mapy = 16;
     int posx = random(mapx);
     int posy = random(mapy);
     int def_length = 3;

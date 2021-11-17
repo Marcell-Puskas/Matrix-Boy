@@ -16,6 +16,9 @@ extern char keychar;
 
 extern int timeout_x, timeout_y, timeout_b;
 
+const int mapx = 8;
+const int mapy = 16;
+
 const int restart_timeout = 50;
 const int default_timeout = 10;
 const int input_update = 10;
