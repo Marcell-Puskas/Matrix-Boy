@@ -22,6 +22,8 @@ int max_bright = 64;
 
 int timeout_x, timeout_y, timeout_b = 0;
 
+int intmap[mapx][mapy];
+
 const int matrixWidth = 8;
 const int matrixHeight = 8;
 const int tilesX = 1;
@@ -37,7 +39,7 @@ void call_game(int game_index) {
     switch (game_index)
     {
         case 0:
-        //Snake_game();
+        Snake_game();
         break;
 
         case 1:

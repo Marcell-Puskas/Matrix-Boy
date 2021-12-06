@@ -52,7 +52,7 @@ char movechar;
 
 int selected_tetro[mino_num][2];
 int construncted_tetro[mino_num][2];
-int stack_map[mapx][mapy];
+extern int intmap[mapx][mapy];
 
 void Construct_tetro(int cdir, bool select = false)
 {
@@ -109,8 +109,8 @@ void Screen_print()
     {
         for (int cx = 0; cx < mapx; cx++)
         {
-            if(stack_map[cx][cy] != 0)
-                matrix.drawPixel(cx, cy, (tetro_colors[stack_map[cx][cy] - 1]) );
+            if(intmap[cx][cy] != 0)
+                matrix.drawPixel(cx, cy, (tetro_colors[intmap[cx][cy] - 1]) );
             else
                 matrix.drawPixel(cx, cy, background_color);
         }
@@ -138,7 +138,7 @@ bool check_move(int nextX, int nextY, int nextDir)
         if(nextY + construncted_tetro[cmino][1] >= mapy) return false;
         if(nextY + construncted_tetro[cmino][1] < 0) return false;
 
-        if(stack_map[ nextX + construncted_tetro[cmino][0] ][ nextY + construncted_tetro[cmino][1] ] != 0)
+        if(intmap[ nextX + construncted_tetro[cmino][0] ][ nextY + construncted_tetro[cmino][1] ] != 0)
             return false;
     }
     return true;
@@ -257,7 +257,7 @@ void Check_full_line()
     {
         bool line_full = true;
         for (size_t crow = 0; crow < mapx; crow++)
-            if(stack_map[crow][cline] == 0)
+            if(intmap[crow][cline] == 0)
                 line_full = false;
         
         if(line_full)
@@ -270,7 +270,7 @@ void Check_full_line()
 
             for (size_t copyy = cline; copyy >= 1; copyy--)
                     for (size_t copyx = 0; copyx < mapx; copyx++)
-                        stack_map[copyx][copyy] = stack_map[copyx][copyy - 1];
+                        intmap[copyx][copyy] = intmap[copyx][copyy - 1];
         }
     }
 
@@ -300,7 +300,7 @@ void Logic()
     {
         for(int cmino = 0; cmino < mino_num; cmino++)
         {
-            stack_map[ posx + selected_tetro[cmino][0] ][ posy + selected_tetro[cmino][1] ] = selected_index + 1;
+            intmap[ posx + selected_tetro[cmino][0] ][ posy + selected_tetro[cmino][1] ] = selected_index + 1;
         }
         Check_full_line();
         New_tetro();
@@ -319,7 +319,7 @@ void Tetris_game()
     speed = 50;
     run = true;
     gameover = false;
-    memset(stack_map, 0, sizeof(stack_map));
+    memset(intmap, 0, sizeof(intmap));
 
     New_tetro();
     

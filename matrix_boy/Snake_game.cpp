@@ -22,7 +22,7 @@ void Snake_game()
     const uint32_t color_background = matrix.Color(0, 0, 0);
 
     //create varriables
-    int age_map[mapx][mapy];
+    extern int intmap[mapx][mapy];
     int foodx = random(mapx);
     int foody = random(mapy);
     int dir = random(4);
@@ -31,7 +31,7 @@ void Snake_game()
     bool gameover = false;
     char keyc = 'd';
 
-    memset(age_map, 0, sizeof(age_map));
+    memset(intmap, 0, sizeof(intmap));
 
     while (runing && !gameover)
     {
@@ -101,17 +101,17 @@ void Snake_game()
             }
         }
 
-        if (age_map[posx][posy] > 0)
+        if (intmap[posx][posy] > 0)
         {
             runing = false;
             gameover = true;
         }
 
-        age_map[posx][posy] = 1;
+        intmap[posx][posy] = 1;
 
         if (posx == foodx && posy == foody)
         {
-            while (age_map[foodx][foody] != 0)
+            while (intmap[foodx][foody] != 0)
             {
                 foodx = random(mapx);
                 foody = random(mapy);
@@ -123,18 +123,18 @@ void Snake_game()
         {
             for (size_t cx = 0; cx < mapx; cx++)
             {
-                if (age_map[cx][cy] > 0)
+                if (intmap[cx][cy] > 0)
                 {
                     if(cx == posx && cy == posy) 
                         matrix.drawPixel(cx, cy, color_head);
                     else
                         matrix.drawPixel(cx, cy, color_snake);
                     
-                    age_map[cx][cy]++;
+                    intmap[cx][cy]++;
 
-                    if (age_map[cx][cy] > snakelength + def_length)
+                    if (intmap[cx][cy] > snakelength + def_length)
                     {
-                        age_map[cx][cy] = 0;
+                        intmap[cx][cy] = 0;
                     }
                 }
                 else if (cx == foodx && cy == foody)

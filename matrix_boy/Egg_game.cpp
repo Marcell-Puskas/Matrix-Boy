@@ -1,6 +1,6 @@
 #include "matrix_boy_IO.h"
 
-int egg_map[mapx][mapy];
+extern int intmap[mapx][mapy];
 
 const uint32_t pad_color = matrix.Color(255, 255, 255);
 
@@ -105,7 +105,7 @@ void Egg_print()
     {
         for(size_t cx = 0; cx < mapx; cx++)
         {
-            matrix.drawPixel(cx, cy, egg_colors[ egg_map[cx][cy] ]);
+            matrix.drawPixel(cx, cy, egg_colors[ intmap[cx][cy] ]);
         }   
     }
     matrix.drawLine(pos_pad, mapy -1, pos_pad + pad_size -1, mapy-1, pad_color);
@@ -116,7 +116,7 @@ void Egg_game()
 {
     run = true;
     gameover = false;
-    memset(egg_map, 0, sizeof(egg_map));
+    memset(intmap, 0, sizeof(intmap));
     pos_pad = 0;
     speed2 = 25;
     spawnrate = 4;
@@ -124,7 +124,7 @@ void Egg_game()
 
     while(run)
     {
-        egg_map[ random(mapx) ][0] = random(1, egg_color_num);
+        intmap[ random(mapx) ][0] = random(1, egg_color_num);
 
         for(size_t rounds = 0; rounds < spawnrate && run; rounds++)
         {
@@ -132,21 +132,21 @@ void Egg_game()
             {
                 for(size_t cx = 0; cx < mapx; cx++)
                 {
-                    if(egg_map[cx][cy] != 0)
+                    if(intmap[cx][cy] != 0)
                     {
-                        egg_map[cx][cy + 1] = egg_map[cx][cy];
-                        egg_map[cx][cy] = 0;
+                        intmap[cx][cy + 1] = intmap[cx][cy];
+                        intmap[cx][cy] = 0;
                     }
                 }
             }
 
             for (size_t i = 0; i < mapx; i++)
             {
-                if(egg_map[i][mapy - 1] != 0)
+                if(intmap[i][mapy - 1] != 0)
                 {
                     if(pos_pad <= i && i < pos_pad + pad_size)
                     {
-                        egg_map[i][mapy - 1] = 0;
+                        intmap[i][mapy - 1] = 0;
                         score++;
                         speed2 = max(10, 15 - score);
                     }
