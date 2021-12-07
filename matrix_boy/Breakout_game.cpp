@@ -24,7 +24,6 @@ const int bounce_corner[] = {2, 3, 0, 1};
 int pospad = 0;
 
 bool bricks_map[coloums][rows];
-bool rotation_clockvise = true;
 bool move_done;
 
 extern int posx, posy, dir, speed;
