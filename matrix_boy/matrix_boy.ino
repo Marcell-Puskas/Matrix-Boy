@@ -3,12 +3,12 @@
 #include <Adafruit_NeoPixel.h>
 
 #include "matrix_boy_IO.h"
-#include "matrix_boy_image_bmps.h"
-#include "Snake_game.h"
+#include "matrix_boy_apps.h"
+/* #include "Snake_game.h"
 #include "Tetris_game.h"
 #include "Breakout_game.h"
 #include "Egg_game.h"
-#include "Brightness_selector.h"
+#include "Brightness_selector.h" */
 
 const int matrixWidth = 8;
 const int matrixHeight = 8;
@@ -41,31 +41,6 @@ void setup() {
     Serial.begin(9600);
     Serial.println("MatrixBoy Running");
     digitalWrite(11, HIGH);
-}
-
-void call_game(int game_index) {
-    switch (game_index)
-    {
-        case 0:
-        Snake_game();
-        break;
-
-        case 1:
-        Tetris_game();
-        break;
-
-        case 2:
-        Breakout_game();
-        break;
-
-        case 4:
-        Egg_game();
-        break;
-
-        case 5:
-        Brightness_selector();
-        break;
-    }
 }
 
 void loop() {
@@ -101,7 +76,7 @@ void loop() {
         break;
 
         case 'o':
-        call_game(selected_game);
+        app[selected_game]();
         break;
     }
 

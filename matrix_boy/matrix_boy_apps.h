@@ -1,7 +1,24 @@
-#ifndef MATRIX_BOY_IMAGE_BMPS_H
-#define MATRIX_BOY_IMAGE_BMPS_H
+#ifndef MATRIX_BOY_APPS_H
+#define MATRIX_BOY_APPS_H
 
 #include <Arduino.h>
+
+void Snake_game();
+void Tetris_game();
+void Breakout_game();
+void Pong_game();
+void Egg_game();
+void Brightness_selector();
+
+typedef void (*app_function) ();
+app_function app[] = {
+    Snake_game,
+    Tetris_game,
+    Breakout_game,
+    Pong_game,
+    Egg_game,
+    Brightness_selector
+};
 
 const uint16_t snake_bmp[] PROGMEM = {
     0x001f, 0x001f, 0x001f, 0x001f, 0x001f, 0x001f, 0x001f, 0x001f, 
