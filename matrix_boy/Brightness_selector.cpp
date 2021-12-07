@@ -1,26 +1,23 @@
 #include "matrix_boy_IO.h"
 
-bool selecting = true;
-char keychar2 = NULL;;
+extern bool run;
 extern int bright;
-const extern int max_bright_select;
-const extern int max_bright;
-const extern int min_bright;
+const  int max_bright = 16;
 
 void Brightness_selector()
 {
     const uint32_t color_slide = matrix.Color(255, 255, 255);
-    selecting = true;
+    run = true;
 
-    while(selecting)
+    while(run)
     {
-        if(Serial.available()) keychar2 = Serial.read();
+        if(Serial.available()) keychar = Serial.read();
 
         if(analogRead(JOYY) < 384)
         {
             if(timeout_y == 0)
             {
-                keychar2 = 'w';
+                keychar = 'w';
                 timeout_y =  default_timeout;
             }
         }
@@ -28,7 +25,7 @@ void Brightness_selector()
         {
             if(timeout_y == 0)
             {
-                keychar2 = 's';
+                keychar = 's';
                 timeout_y = default_timeout;
             }
         }
@@ -38,7 +35,7 @@ void Brightness_selector()
         {
             if(timeout_b == 0)
             {
-                keychar2 = 'o';
+                keychar = 'o';
                 timeout_b = restart_timeout;
             }
         }
@@ -46,10 +43,10 @@ void Brightness_selector()
 
         if(timeout_y != 0) timeout_y--;
 
-        switch (keychar2)
+        switch (keychar)
         {
             case 'w':
-                if(bright < max_bright_select) bright++;
+                if(bright < max_bright) bright++;
                 break;
 
             case 's':
@@ -57,10 +54,10 @@ void Brightness_selector()
                 break;
             
             case 'o':
-                selecting = false;
+                run = false;
                 break;
         }
-        keychar2 = NULL;
+        keychar = NULL;
 
         matrix.setBrightness(bright);
 

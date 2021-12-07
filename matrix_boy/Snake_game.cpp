@@ -9,11 +9,7 @@ void Snake_game()
     matrix.clear();
 
     //config
-    int posx = random(mapx);
-    int posy = random(mapy);
-    int def_length = 3;
-    int snakelength = 0;
-
+    const int def_length = 3;
     const bool screen_warp = true;
 
     const uint32_t color_snake = matrix.Color(0, 255, 0);
@@ -23,23 +19,30 @@ void Snake_game()
 
     //create varriables
     extern int intmap[mapx][mapy];
+    extern int posx, posy, dir;
+    extern bool run, gameover;
+    posx = random(mapx);
+    posy = random(mapy);
+    dir = random(4);
+    run = true;
+    gameover = false;
+
+    int snakelength = 0;
+
     int foodx = random(mapx);
     int foody = random(mapy);
-    int dir = random(4);
     int dir_input = 0;
-    bool runing = true;
-    bool gameover = false;
-    char keyc = 'd';
+
 
     memset(intmap, 0, sizeof(intmap));
 
-    while (runing && !gameover)
+    while (run && !gameover)
     {
         //controlls
         if(Serial.available())
         {
-            keyc = Serial.read();
-            switch (keyc)
+            keychar = Serial.read();
+            switch (keychar)
             {
                 case 'd': dir_input = 0; break;
                 case 'a': dir_input = 1; break;
@@ -103,7 +106,7 @@ void Snake_game()
 
         if (intmap[posx][posy] > 0)
         {
-            runing = false;
+            run = false;
             gameover = true;
         }
 
@@ -169,7 +172,7 @@ void Snake_game()
                     
                     if(digitalRead(JOYB) == 0)
                     {
-                        runing = false;
+                        run = false;
                         timeout_b = restart_timeout;
                     }
                     else

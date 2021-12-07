@@ -44,9 +44,8 @@ const uint32_t tetro_colors[] = {
 const uint32_t background_color = matrix.Color(0, 0, 0);
 const uint32_t full_line_color = matrix.Color(255, 255, 255);
 
-bool run, gameover;
-
-int posx, posy, dir, selected_index, points, speed;
+extern int posx, posy, dir, selected_index, points, speed;
+extern bool run, gameover;
 
 char movechar;
 

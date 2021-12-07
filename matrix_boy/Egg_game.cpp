@@ -1,9 +1,9 @@
 #include "matrix_boy_IO.h"
 
-extern int intmap[mapx][mapy];
+const int egg_color_num = 4;
+const int pad_size = 3;
 
 const uint32_t pad_color = matrix.Color(255, 255, 255);
-
 const uint32_t egg_colors[] = {
     0,
     matrix.Color(255, 0, 0),
@@ -13,16 +13,11 @@ const uint32_t egg_colors[] = {
     matrix.Color(0, 0, 255),
 };
 
-const int egg_color_num = 4;
-const int pad_size = 3;
+int spawnrate, pos_pad;
 
-int spawnrate;
-int score;
-int pos_pad;
-extern bool run;
-extern bool gameover;
-extern char keychar;
-int speed2;
+extern int points, speed;
+extern int intmap[mapx][mapy];
+extern bool run, gameover;
 
 void input2()
 {
@@ -118,9 +113,9 @@ void Egg_game()
     gameover = false;
     memset(intmap, 0, sizeof(intmap));
     pos_pad = 0;
-    speed2 = 25;
+    speed = 25;
     spawnrate = 4;
-    score = 0;
+    points = 0;
 
     while(run)
     {
@@ -147,8 +142,8 @@ void Egg_game()
                     if(pos_pad <= i && i < pos_pad + pad_size)
                     {
                         intmap[i][mapy - 1] = 0;
-                        score++;
-                        speed2 = max(10, 15 - score);
+                        points++;
+                        speed = max(10, 15 - points);
                     }
                     else
                     {
@@ -158,7 +153,7 @@ void Egg_game()
                 }
             }
 
-            for (size_t i = 0; i < speed2; i++)
+            for (size_t i = 0; i < speed; i++)
             {
                 input2();
                 switch (keychar)
@@ -175,11 +170,11 @@ void Egg_game()
 
     if(gameover)
     {
-        Serial.print("Game over, Score: ");
-        Serial.println(score);
+        Serial.print("Game over, points: ");
+        Serial.println(points);
         matrix.setCursor(0, 0);
         matrix.clear();
-        matrix.print(score);
+        matrix.print(points);
         matrix.show();
         delay(2000);// hardcode
     }

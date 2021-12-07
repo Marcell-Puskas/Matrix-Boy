@@ -13,7 +13,6 @@
 extern Adafruit_NeoMatrix matrix;
 
 extern char keychar;
-
 extern int timeout_x, timeout_y, timeout_b;
 
 const int mapx = 8;

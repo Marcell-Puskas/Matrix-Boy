@@ -2,7 +2,10 @@
 
 const int rows = 8;
 const int coloums = mapx / 2;
+const int pad_size = 3;
 
+const uint32_t ball_color = matrix.Color(255, 255, 255);
+const uint32_t pad_color = matrix.Color(0, 0, 255);
 const uint32_t row_colors[] = {
     matrix.Color(255, 0, 0),
     matrix.Color(255, 0, 0),
@@ -14,28 +17,18 @@ const uint32_t row_colors[] = {
     matrix.Color(255, 255, 0)
 };
 
-const uint32_t ball_color = matrix.Color(255, 255, 255);
-const uint32_t pad_color = matrix.Color(0, 0, 255);
-
-const int pad_size = 3;
-int pospad = 0;
-
-bool bricks_map[coloums][rows];
-
-bool rotation_clockvise = true;
-
-bool move_done;
-
-extern int posx, posy;
-extern bool run;
-extern bool gameover;
-extern char keychar;
-extern int dir;
-extern int speed;
-
 const int bounce_vertical[] = {3, 2, 1, 0};
 const int bounce_horisontal[] = {1, 0, 3, 2};
 const int bounce_corner[] = {2, 3, 0, 1};
+
+int pospad = 0;
+
+bool bricks_map[coloums][rows];
+bool rotation_clockvise = true;
+bool move_done;
+
+extern int posx, posy, dir, speed;
+extern bool run, gameover;
 
 bool check_move(int nextX, int nextY)
 {
@@ -79,7 +72,7 @@ bool check_move(int nextX, int nextY)
             switch(posx - pospad)
             {
                 case 0: dir = 3; break;
-                case 1: dir = bounce_vertical[dir]; break;
+                case 1: dir = bounce_horisontal[dir]; break;
                 case 2: dir = 0; break;
             }
         }
