@@ -1,7 +1,3 @@
-#include <Adafruit_GFX.h>
-#include <Adafruit_NeoMatrix.h>
-#include <Adafruit_NeoPixel.h>
-
 #include "matrix_boy_IO.h"
 
 void Snake_game()
@@ -38,19 +34,6 @@ void Snake_game()
 
     while (run && !gameover)
     {
-        //controlls
-        if(Serial.available())
-        {
-            keychar = Serial.read();
-            switch (keychar)
-            {
-                case 'd': dir_input = 0; break;
-                case 'a': dir_input = 1; break;
-                case 's': dir_input = 2; break;
-                case 'w': dir_input = 3; break;
-            }
-        }
-
         switch (dir_input)
         {
             case 0: if (dir != 1) dir = 0; break;
@@ -158,36 +141,16 @@ void Snake_game()
 
         for (size_t i = 0; i < 20 + 50 / (snakelength + 1); i++)
         {
-            if(analogRead(JOYX) > 640) dir_input = 0;
-            if(analogRead(JOYX) < 384) dir_input = 1;
-            if(analogRead(JOYY) > 640) dir_input = 2;
-            if(analogRead(JOYY) < 384) dir_input = 3;
+            Input(true);
 
-            if(digitalRead(JOYB) == 0)
+            switch(keychar)
             {
-                if(timeout_b == 0)
-                {
-                    for (size_t i = 0; i < 200 && digitalRead(JOYB) == 0; i++)
-                        delay(input_update);
-                    
-                    if(digitalRead(JOYB) == 0)
-                    {
-                        run = false;
-                        timeout_b = restart_timeout;
-                    }
-                    else
-                    {
-                        matrix.drawRect(1, 4, 2, 8, pause_color);
-                        matrix.drawRect(5, 4, 2, 8, pause_color);
-                        matrix.show();
-                        while (digitalRead(JOYB) == 1)
-                            delay(input_update);
-                        
-                        timeout_b = default_timeout;
-                    }
-                }
+                case 'd': dir_input = 0; break;
+                case 'a': dir_input = 1; break;
+                case 's': dir_input = 2; break;
+                case 'w': dir_input = 3; break;
+                case 'e': run = false; break;
             }
-            else timeout_b = 0;
             delay(10);
         }
     }

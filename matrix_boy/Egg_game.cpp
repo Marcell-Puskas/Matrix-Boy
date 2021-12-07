@@ -19,81 +19,6 @@ extern int points, speed;
 extern int intmap[mapx][mapy];
 extern bool run, gameover;
 
-void input2()
-{
-    keychar = NULL;
-
-    if(Serial.available()) keychar = Serial.read();
-
-    if(analogRead(JOYX) < 384)
-    {
-        if(timeout_x == 0)
-        {
-            keychar = 'a';
-            timeout_x =  default_timeout;
-        }
-    }
-    else if(analogRead(JOYX) > 640)
-    {
-        if(timeout_x == 0)
-        {
-            keychar = 'd';
-            timeout_x =  default_timeout;
-        }
-    }
-    else timeout_x = 0;
-
-    if(analogRead(JOYY) < 384)
-    {
-        if(timeout_y == 0)
-        {
-            keychar = 'w';
-            timeout_y =  default_timeout;
-        }
-    }
-    else if(analogRead(JOYY) > 640)
-    {
-        if(timeout_y == 0)
-        {
-            keychar = 's';
-            timeout_y = default_timeout;
-        }
-    }
-    else timeout_y = 0;
-
-    if(digitalRead(JOYB) == 0)
-    {
-        if(timeout_b == 0)
-        {
-            for (size_t i = 0; i < 200 && digitalRead(JOYB) == 0; i++)
-                delay(input_update);
-            
-            if(digitalRead(JOYB) == 0)
-            {
-                keychar = 'e';
-                timeout_b = restart_timeout;
-            }
-            else
-            {
-                matrix.drawRect(1, 4, 2, 8, pause_color);
-                matrix.drawRect(5, 4, 2, 8, pause_color);
-                matrix.show();
-                while (digitalRead(JOYB) == 1)
-                    delay(input_update);
-                
-                timeout_b = default_timeout;
-            }
-        }
-    }
-    else timeout_b = 0;
-
-    if(timeout_x != 0) timeout_x--;
-    if(timeout_y != 0) timeout_y--;
-    //if(timeout_b != 0) timeout_b--;
-    
-    //return keychar;
-}
-
 void Egg_print()
 {
     for(size_t cy = 0; cy < mapy; cy++)
@@ -155,7 +80,7 @@ void Egg_game()
 
             for (size_t i = 0; i < speed; i++)
             {
-                input2();
+                Input();
                 switch (keychar)
                 {
                     case 'd': if(pos_pad + pad_size < mapx) pos_pad++; break;

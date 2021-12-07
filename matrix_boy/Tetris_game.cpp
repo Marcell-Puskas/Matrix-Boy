@@ -1,15 +1,9 @@
-#include <Adafruit_GFX.h>
-#include <Adafruit_NeoMatrix.h>
-#include <Adafruit_NeoPixel.h>
-
 #include "matrix_boy_IO.h"
 
 const int tetro_num = 7;
 const int mino_num = 4;
 const int clear_time = 400;
 const int score_time = 2000;
-const int down_timeout = 3;
-const int up_timeout = 14;
 
 const int tetro_cordinates[][4][2] = {
     {{0, 1}, {1, 1}, {2, 1}, {3, 1}},
@@ -46,8 +40,6 @@ const uint32_t full_line_color = matrix.Color(255, 255, 255);
 
 extern int posx, posy, dir, selected_index, points, speed;
 extern bool run, gameover;
-
-char movechar;
 
 int selected_tetro[mino_num][2];
 int construncted_tetro[mino_num][2];
@@ -147,101 +139,24 @@ void Key_get()
 {
     for (size_t t = 0; t < speed && run; t++)
     {
-        if(Serial.available())
+        Input();
+        
+        switch(keychar)
         {
-            keychar = Serial.read();
-            switch(keychar)
-            {
-                case 'a': movechar = 'l'; break;
-                case 'd': movechar = 'r'; break;
-                case 'w': movechar = 'u'; break;
-                case 's': movechar = 'd'; break;
-                case 'm': run = false; break;
-            }
-        }
+            case 'a': if(check_move(posx - 1, posy, dir)) posx--; break;
+            case 'd': if(check_move(posx + 1, posy, dir)) posx++; break;
+            case 's': if(check_move(posx, posy + 1, dir)) posy++; break;
 
-        if(analogRead(JOYX) < 384)
-        {
-            if(timeout_x == 0)
-            {
-                movechar = 'l';
-                timeout_x =  default_timeout;
-            }
-        }
-        else if(analogRead(JOYX) > 640)
-        {
-            if(timeout_x == 0)
-            {
-                movechar = 'r';
-                timeout_x =  default_timeout;
-            }
-        }
-        else timeout_x = 0;
-
-        if(analogRead(JOYY) < 384)
-        {
-            if(timeout_y == 0)
-            {
-                movechar = 'u';
-                timeout_y =  up_timeout;
-            }
-        }
-        else if(analogRead(JOYY) > 640)
-        {
-            if(timeout_y == 0)
-            {
-                movechar = 'd';
-                timeout_y = down_timeout;
-            }
-        }
-        else timeout_y = 0;
-
-        if(digitalRead(JOYB) == 0)
-        {
-            if(timeout_b == 0)
-            {
-                for (size_t i = 0; i < 200 && digitalRead(JOYB) == 0; i++)
-                    delay(input_update);
-                
-                if(digitalRead(JOYB) == 0)
-                {
-                    run = false;
-                    timeout_b = restart_timeout;
-                }
-                else
-                {
-                    matrix.drawRect(1, 4, 2, 8, pause_color);
-                    matrix.drawRect(5, 4, 2, 8, pause_color);
-                    matrix.show();
-                    while (digitalRead(JOYB) == 1)
-                        delay(input_update);
-                    
-                    timeout_b = default_timeout;
-                }
-            }
-        }
-        else timeout_b = 0;
-
-        switch(movechar)
-        {
-            case 'l': if(check_move(posx - 1, posy, dir)) posx--; break;
-            case 'r': if(check_move(posx + 1, posy, dir)) posx++; break;
-            case 'd': if(check_move(posx, posy + 1, dir)) posy++; break;
-
-            case 'u':
+            case 'w':
             if(check_move(posx, posy, (dir + 1) % 4))
             {
                 dir = (dir + 1) % 4;
                 Construct_tetro(dir, true);
             }
             break;
-        }
 
-        if(timeout_x != 0) timeout_x--;
-        if(timeout_y != 0) timeout_y--;
-        if(timeout_b != 0) timeout_b--;
-        
-        movechar = NULL;
+            case 'e': run = false; break;
+        }
 
         Screen_print();
 
@@ -313,6 +228,9 @@ void Tetris_game()
 {
     Serial.println("Starting tetris");
 	matrix.clear();
+
+    up_timeout = 14;
+    down_timeout = 3;
 
     points = 0;
     speed = 50;

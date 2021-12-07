@@ -4,11 +4,6 @@
 
 #include "matrix_boy_IO.h"
 #include "matrix_boy_apps.h"
-/* #include "Snake_game.h"
-#include "Tetris_game.h"
-#include "Breakout_game.h"
-#include "Egg_game.h"
-#include "Brightness_selector.h" */
 
 const int matrixWidth = 8;
 const int matrixHeight = 8;
@@ -28,7 +23,10 @@ const int anim_speed = 25;
 int bright = 2;
 int selected_game = 0;
 
-int timeout_x, timeout_y, timeout_b = 0;
+int up_timeout, down_timeout, left_timeout, right_timeout, button_timeout;
+int timeout_x, timeout_y, timeout_b;
+bool pause_menu;
+
 int intmap[mapx][mapy];
 
 char keychar;
@@ -40,7 +38,6 @@ void setup() {
     matrix.setBrightness(bright);
     Serial.begin(9600);
     Serial.println("MatrixBoy Running");
-    digitalWrite(11, HIGH);
 }
 
 void loop() {
@@ -76,6 +73,13 @@ void loop() {
         break;
 
         case 'o':
+        up_timeout = default_timeout;
+        down_timeout = default_timeout;
+        left_timeout = default_timeout;
+        right_timeout = default_timeout;
+        button_timeout = default_timeout;
+        pause_menu = true;
+
         app[selected_game]();
         break;
     }
@@ -85,8 +89,8 @@ void loop() {
     matrix.drawRGBBitmap(0, 0, (bmps[selected_game]), 8, 16);
     matrix.show();
 
-    if(analogRead(JOYX) > 640) keychar = 'd';
-    if(analogRead(JOYX) < 384) keychar = 'a';
+    /* if(analogRead(JOYX) > joy_high_threshold) keychar = 'd';
+    if(analogRead(JOYX) < joy_low_threshold) keychar = 'a';
     if(digitalRead(JOYB) == 0)
     {
         if(timeout_b == 0)
@@ -95,7 +99,10 @@ void loop() {
             timeout_b = restart_timeout;
         }
     }
-    else timeout_b = 0;
+    else timeout_b = 0; */
+
+    pause_menu = false;
+    Input(true);
 
     delay(10);
 }
