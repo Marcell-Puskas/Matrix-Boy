@@ -48,7 +48,7 @@ void Input(bool no_timeout)
         {
             if(pause_menu)
             {
-                for (size_t i = 0; i < 200 && digitalRead(JOYB) == 0; i++)
+                for (size_t i = 0; i < exit_timeout && digitalRead(JOYB) == 0; i++)
                     delay(input_update);
                 
                 if(digitalRead(JOYB) == 0)

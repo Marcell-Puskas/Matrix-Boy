@@ -20,8 +20,9 @@ extern bool pause_menu;
 
 const int mapx = 8;
 const int mapy = 16;
-const int restart_timeout = 50;
 const int default_timeout = 10;
+const int restart_timeout = 50;
+const int exit_timeout = 100;
 const int input_update = 10;
 const int joy_high_threshold = 640;
 const int joy_low_threshold = 384;

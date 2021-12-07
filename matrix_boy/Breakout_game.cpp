@@ -92,7 +92,7 @@ void Breakout_game()
     gameover = false;
     memset(bricks_map, 0, sizeof(bricks_map));
     
-    posx = 0;
+    posx = random(mapx);
     posy = mapy -2;
     dir = 0;
     speed = 25;
@@ -132,8 +132,6 @@ void Breakout_game()
         move_done = false;
         while(!move_done && run)
         {
-            Serial.println(dir);
-            Serial.print(run);
             switch (dir)
             {
             case 0:
@@ -172,8 +170,6 @@ void Breakout_game()
                 }
                 break;
             }
-            
-            keychar = NULL;
         }
     }
 }

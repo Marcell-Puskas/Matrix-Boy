@@ -93,15 +93,15 @@ void New_tetro()
     else posy = 0;
 }
 
-void Screen_print()
+void Tetris_print()
 {
     //draw stack
     for (int cy = 0; cy < mapy; cy++)
     {
         for (int cx = 0; cx < mapx; cx++)
         {
-            if(intmap[cx][cy] != 0)
-                matrix.drawPixel(cx, cy, (tetro_colors[intmap[cx][cy] - 1]) );
+            if(intmap[cx][cy] != -1)
+                matrix.drawPixel(cx, cy, (tetro_colors[intmap[cx][cy]]) );
             else
                 matrix.drawPixel(cx, cy, background_color);
         }
@@ -129,13 +129,13 @@ bool check_move(int nextX, int nextY, int nextDir)
         if(nextY + construncted_tetro[cmino][1] >= mapy) return false;
         if(nextY + construncted_tetro[cmino][1] < 0) return false;
 
-        if(intmap[ nextX + construncted_tetro[cmino][0] ][ nextY + construncted_tetro[cmino][1] ] != 0)
+        if(intmap[ nextX + construncted_tetro[cmino][0] ][ nextY + construncted_tetro[cmino][1] ] != -1)
             return false;
     }
     return true;
 }
 
-void Key_get()
+void Update_input()
 {
     for (size_t t = 0; t < speed && run; t++)
     {
@@ -158,7 +158,7 @@ void Key_get()
             case 'e': run = false; break;
         }
 
-        Screen_print();
+        Tetris_print();
 
         delay(input_update);
     }
@@ -171,7 +171,7 @@ void Check_full_line()
     {
         bool line_full = true;
         for (size_t crow = 0; crow < mapx; crow++)
-            if(intmap[crow][cline] == 0)
+            if(intmap[crow][cline] == -1)
                 line_full = false;
         
         if(line_full)
@@ -214,14 +214,14 @@ void Logic()
     {
         for(int cmino = 0; cmino < mino_num; cmino++)
         {
-            intmap[ posx + selected_tetro[cmino][0] ][ posy + selected_tetro[cmino][1] ] = selected_index + 1;
+            intmap[ posx + selected_tetro[cmino][0] ][ posy + selected_tetro[cmino][1] ] = selected_index;
         }
         Check_full_line();
         New_tetro();
         Check_gameover();
     }
 
-    Screen_print();
+    Tetris_print();
 }
 
 void Tetris_game()
@@ -236,13 +236,13 @@ void Tetris_game()
     speed = 50;
     run = true;
     gameover = false;
-    memset(intmap, 0, sizeof(intmap));
+    memset(intmap, -1, sizeof(intmap));
 
     New_tetro();
     
     while(run)
     {
-        Key_get();
+        Update_input();
         Logic();
     }
 

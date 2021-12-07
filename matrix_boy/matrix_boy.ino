@@ -41,13 +41,6 @@ void setup() {
 }
 
 void loop() {
-    if(Serial.available())
-    {
-        keychar = Serial.read();
-        Serial.print("Selected: ");
-        Serial.println(selected_game);
-    }
-
     switch (keychar)
     {
         case 'a':
@@ -84,25 +77,11 @@ void loop() {
         break;
     }
 
-    keychar = NULL;
-
     matrix.drawRGBBitmap(0, 0, (bmps[selected_game]), 8, 16);
     matrix.show();
-
-    /* if(analogRead(JOYX) > joy_high_threshold) keychar = 'd';
-    if(analogRead(JOYX) < joy_low_threshold) keychar = 'a';
-    if(digitalRead(JOYB) == 0)
-    {
-        if(timeout_b == 0)
-        {
-            keychar = 'o';
-            timeout_b = restart_timeout;
-        }
-    }
-    else timeout_b = 0; */
 
     pause_menu = false;
     Input(true);
 
-    delay(10);
+    delay(input_update);
 }
