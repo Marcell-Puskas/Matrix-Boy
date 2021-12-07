@@ -134,10 +134,6 @@ void Snake_game()
             }
         }
         matrix.show();
-        Serial.print("Score: ");
-        Serial.print(snakelength);
-        Serial.print(" Direction: ");
-        Serial.println(dir);
 
         for (size_t i = 0; i < 20 + 50 / (snakelength + 1); i++)
         {
@@ -157,8 +153,6 @@ void Snake_game()
 
     if (gameover)
     {
-        Serial.print("Game over, Score: ");
-        Serial.println(snakelength);
         matrix.setCursor(0, 0);
         matrix.clear();
         matrix.print(snakelength);

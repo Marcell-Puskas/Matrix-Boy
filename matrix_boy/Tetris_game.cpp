@@ -226,7 +226,6 @@ void Logic()
 
 void Tetris_game()
 {
-    Serial.println("Starting tetris");
 	matrix.clear();
 
     up_timeout = 14;

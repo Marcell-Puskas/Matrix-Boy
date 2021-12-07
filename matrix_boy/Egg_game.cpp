@@ -95,8 +95,6 @@ void Egg_game()
 
     if(gameover)
     {
-        Serial.print("Game over, points: ");
-        Serial.println(points);
         matrix.setCursor(0, 0);
         matrix.clear();
         matrix.print(points);
