@@ -21,6 +21,7 @@ const int game_count = 6;
 const int anim_speed = 25;
 
 int bright = 2;
+int volume = 0;
 int selected_game = 0;
 
 int up_timeout, down_timeout, left_timeout, right_timeout, button_timeout;
