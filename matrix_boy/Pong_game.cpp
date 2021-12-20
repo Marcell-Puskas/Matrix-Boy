@@ -47,7 +47,8 @@ bool check_move(int nextX, int nextY)
     return false;
 }
 */
-void Pong_game(){}/*
+//void Pong_game(){}
+/*
 {
     run = true;
     gameover = false;

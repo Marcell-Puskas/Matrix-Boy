@@ -31,7 +31,7 @@ int intmap[mapx][mapy];
 
 char keychar;
 int posx, posy, dir, selected_index, points, speed;
-bool run, gameover;
+bool run, gameover, win;
 
 void setup() {
     matrix.begin();
