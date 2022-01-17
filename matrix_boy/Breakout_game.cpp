@@ -173,6 +173,8 @@ void Breakout_game()
 int enemy_pos;
 const int enemy_size = 3;
 const uint32_t enemy_color = matrix.Color(0, 0, 255);
+int atack_cycle;
+int required_atacks;
 
 bool check_pong_move(int nextX, int nextY)
 {
@@ -184,6 +186,7 @@ bool check_pong_move(int nextX, int nextY)
     {
         if(enemy_pos <= posx && posx < enemy_pos + enemy_size)
         {
+            atack_cycle++;
             if(posx - pad_pos == 0) dir = 2;
             else if(posx - pad_pos == pad_size - 1) dir = 1;
             else dir = bounce_horisontal[dir];
@@ -221,6 +224,8 @@ void Pong_game()
     posy = mapy -2;
     dir = 0;
     speed = 25;
+    atack_cycle = 0;
+    required_atacks = random(2, 5);
 
     while(run)
     {
@@ -289,19 +294,16 @@ void Pong_game()
                     break;
             }
         }
-
-        if(dir == 0 || dir == 3)
+        Serial.print(atack_cycle);
+        Serial.print("\t");
+        Serial.println(dir);
+        if(dir == 0 || dir == 3 && atack_cycle < required_atacks)
         {
             enemy_pos = max(0, min(mapx - enemy_size, posx - 1));
         }
-
-        switch(random(0, 10))
-        {  
-            case 0:
-            break;
-
-            default:
-            break;
+        else
+        {
+            enemy_pos = max(0, min(mapx - enemy_size, enemy_pos + random(-1, 1)));
         }
     }
 }
