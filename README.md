@@ -24,6 +24,7 @@ more info at: https://lcd-image-converter.riuson.com/
  - Make games less difficult
  - Update Snake icon
  - Update Gyro icon
+ - Make the ball games playable in landscape mode
 ## Pictures
 <img src="https://raw.githubusercontent.com/Marcell-Puskas/matrix-boy/master/pictures/game_snake.jpg">
 <img src="https://raw.githubusercontent.com/Marcell-Puskas/matrix-boy/master/pictures/menu_snake.jpg">
