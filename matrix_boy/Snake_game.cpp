@@ -14,9 +14,9 @@ void Snake_game()
     const uint32_t color_background = matrix.Color(0, 0, 0);
 
     //create varriables
-    extern int intmap[mapx][mapy];
-    extern int posx, posy, dir;
-    extern bool run, gameover;
+    int intmap[mapx][mapy];
+    int posx, posy, dir;
+    bool run, gameover;
     posx = random(mapx);
     posy = random(mapy);
     dir = random(4);

@@ -1,25 +1,6 @@
-#include "matrix_boy_IO.h"
+#include "Egg_game.h"
 
-const int egg_color_num = 4;
-const int pad_size = 3;
-
-const uint32_t pad_color = matrix.Color(255, 255, 255);
-const uint32_t egg_colors[] = {
-    0,
-    matrix.Color(255, 0, 0),
-    matrix.Color(255, 255, 0),
-    matrix.Color(0, 255, 0),
-    matrix.Color(0, 255, 255),
-    matrix.Color(0, 0, 255),
-};
-
-int spawnrate, pos_pad;
-
-extern int points, speed;
-extern int intmap[mapx][mapy];
-extern bool run, gameover;
-
-void Egg_print()
+void Egg::Egg_print()
 {
     for(size_t cy = 0; cy < mapy; cy++)
     {
@@ -32,7 +13,7 @@ void Egg_print()
     matrix.show();
 }
 
-void Egg_game()
+void Egg::Egg_game()
 {
     run = true;
     gameover = false;

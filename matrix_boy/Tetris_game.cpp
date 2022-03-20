@@ -1,52 +1,6 @@
-#include "matrix_boy_IO.h"
+#include "Tetris_game.h"
 
-const int tetro_num = 7;
-const int mino_num = 4;
-const int clear_time = 400;
-const int score_time = 2000;
-
-const int tetro_cordinates[][4][2] = {
-    {{0, 1}, {1, 1}, {2, 1}, {3, 1}},
-    {{0, 0}, {0, 1}, {1, 1}, {2, 1}},
-    {{2, 0}, {0, 1}, {1, 1}, {2, 1}},
-    {{0, 0}, {1, 0}, {0, 1}, {1, 1}},
-    {{1, 0}, {2, 0}, {0, 1}, {1, 1}},
-    {{1, 0}, {0, 1}, {1, 1}, {2, 1}},
-    {{0, 0}, {1, 0}, {1, 1}, {2, 1}}
-};
-
-const int tetro_offsets[][2] = {
-    {3, 3},
-    {2, 2},
-    {2, 2},
-    {1, 1},
-    {2, 2},
-    {2, 2},
-    {2, 2}
-};
-
-const uint32_t tetro_colors[] = {
-    matrix.Color(0, 255, 255),
-    matrix.Color(0, 0, 255),
-    matrix.Color(255, 170, 0),
-    matrix.Color(255, 255, 0),
-    matrix.Color(0, 255, 0),
-    matrix.Color(255, 0, 255),
-    matrix.Color(255, 0, 0)
-};
-
-const uint32_t background_color = matrix.Color(0, 0, 0);
-const uint32_t full_line_color = matrix.Color(255, 255, 255);
-
-extern int posx, posy, dir, selected_index, points, speed;
-extern bool run, gameover;
-
-int selected_tetro[mino_num][2];
-int construncted_tetro[mino_num][2];
-extern int intmap[mapx][mapy];
-
-void Construct_tetro(int cdir, bool select = false)
-{
+void Tetris::Construct_tetro(int cdir, bool select = false) {
     for (int cmino = 0; cmino < mino_num; cmino++)
     {
         switch (cdir)
@@ -82,7 +36,7 @@ void Construct_tetro(int cdir, bool select = false)
     }
 }
 
-void New_tetro()
+void Tetris::New_tetro()
 {
     dir = 0;
     selected_index = random(tetro_num);
@@ -93,7 +47,7 @@ void New_tetro()
     else posy = 0;
 }
 
-void Tetris_print()
+void Tetris::Tetris_print()
 {
     //draw stack
     for (int cy = 0; cy < mapy; cy++)
@@ -119,7 +73,7 @@ void Tetris_print()
     matrix.show();
 }
 
-bool check_move(int nextX, int nextY, int nextDir)
+bool Tetris::check_move(int nextX, int nextY, int nextDir)
 {
     Construct_tetro(nextDir);
     for(int cmino = 0; cmino < mino_num; cmino++)
@@ -135,7 +89,7 @@ bool check_move(int nextX, int nextY, int nextDir)
     return true;
 }
 
-void Update_input()
+void Tetris::Update_input()
 {
     for (size_t t = 0; t < speed && run; t++)
     {
@@ -164,7 +118,7 @@ void Update_input()
     }
 }
 
-void Check_full_line()
+void Tetris::Check_full_line()
 {
     bool lines_to_clear = false;
     for (size_t cline = 0; cline < mapy; cline++)
@@ -195,7 +149,7 @@ void Check_full_line()
     }
 }
 
-void Check_gameover()
+void Tetris::Check_gameover()
 {
     if (!check_move(posx, posy, dir))
     {
@@ -204,7 +158,7 @@ void Check_gameover()
     }
 }
 
-void Logic()
+void Tetris::Logic()
 {
     if(check_move(posx, posy + 1, dir))
     {
@@ -224,9 +178,9 @@ void Logic()
     Tetris_print();
 }
 
-void Tetris_game()
+void Tetris::Tetris_game()
 {
-	matrix.clear();
+    matrix.clear();
 
     up_timeout = 14;
     down_timeout = 3;

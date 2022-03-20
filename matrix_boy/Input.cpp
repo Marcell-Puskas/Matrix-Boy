@@ -2,7 +2,7 @@
 
 void Input(bool no_timeout)
 {
-    keychar = NULL;
+    keychar = 'n';
 
     if(Serial.available()) keychar = Serial.read();
 
