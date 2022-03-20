@@ -10,12 +10,14 @@ more info at: https://lcd-image-converter.riuson.com/
  - Atari breakout
  - Pong
  - Catch the egg
+ - Paint
 ## Planned games
  - Atari Space Invaders
- - Paint
 ## Ideas
  - Sound
  - Toutch screen
+ - Utilize eprom memory for saveing settings and paint images
+ - Transfer paint images to or form computer
 ## Todo
  - Gyro imput
  - Update images

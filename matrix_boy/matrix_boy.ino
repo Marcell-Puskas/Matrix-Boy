@@ -4,12 +4,13 @@
 #include "Tetris_game.h"
 #include "ballgames.h"
 #include "Egg_game.h"
+#include "Paint.h"
 
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 1, 2, 6, NEO_TILE_TOP, NEO_GRB);
 //matrixWidth, matrixHeight, tilesX, tilesY, pin, matrixType, ledType
 
 //static const 
-const int app_count = 7;
+const int app_count = 8;
 const int anim_speed = 25;
 
 int bright = 2;
@@ -58,10 +59,17 @@ void call_game(int game_index) {
         break;
 
         case 5:
-        Brightness_selector();
+        {
+            Paint P;
+            P.Paint_app();
+        }
         break;
 
         case 6:
+        Brightness_selector();
+        break;
+
+        case 7:
         gyro_test();
         break;
     }
