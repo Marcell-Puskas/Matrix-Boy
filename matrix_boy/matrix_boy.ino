@@ -9,16 +9,17 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 1, 2, 6, NEO_TILE_TOP, NEO_
 //matrixWidth, matrixHeight, tilesX, tilesY, pin, matrixType, ledType
 
 //static const 
-const int game_count = 6;
+const int app_count = 7;
 const int anim_speed = 25;
 
 int bright = 2;
+
 int selected_game = 0;
 
 int up_timeout, down_timeout, left_timeout, right_timeout, button_timeout;
 int timeout_x, timeout_y, timeout_b;
 bool pause_menu;
-
+bool gyro_mode = false;
 char keychar;
 
 void call_game(int game_index) {
@@ -59,6 +60,10 @@ void call_game(int game_index) {
         case 5:
         Brightness_selector();
         break;
+
+        case 6:
+        gyro_test();
+        break;
     }
 }
 
@@ -68,16 +73,17 @@ void setup() {
     Serial.begin(9600);
     Serial.println("MatrixBoy Running");
     pinMode(JOYB, INPUT_PULLUP);
+    gyro_setup();
 }
 
 void loop() {
     switch (keychar)
     {
         case 'a':
-        selected_game = (selected_game - 1 + game_count) % game_count;
+        selected_game = (selected_game - 1 + app_count) % app_count;
         for (size_t i = 0; i < mapx; i++)
         {
-            matrix.drawRGBBitmap(i, 0, (bmps[ (selected_game + 1 + game_count) % game_count ]), 8, 16);
+            matrix.drawRGBBitmap(i, 0, (bmps[ (selected_game + 1 + app_count) % app_count ]), 8, 16);
             matrix.drawRGBBitmap(-mapx+i, 0, (bmps[selected_game]), 8, 16);
             matrix.show();
             delay(anim_speed);
@@ -85,10 +91,10 @@ void loop() {
         break;
 
         case 'd':
-        selected_game = (selected_game + 1 + game_count) % game_count;
+        selected_game = (selected_game + 1 + app_count) % app_count;
         for (size_t i = 0; i < mapx; i++)
         {
-            matrix.drawRGBBitmap(-i, 0, (bmps[ (selected_game - 1 + game_count) % game_count ]), 8, 16);
+            matrix.drawRGBBitmap(-i, 0, (bmps[ (selected_game - 1 + app_count) % app_count ]), 8, 16);
             matrix.drawRGBBitmap(mapx-i, 0, (bmps[selected_game]), 8, 16);
             matrix.show();
             delay(anim_speed);

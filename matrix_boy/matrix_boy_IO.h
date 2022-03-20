@@ -11,6 +11,7 @@
 #define JOYB 9
 
 void Input(bool no_timeout = false);
+void gyro_read();
 
 extern Adafruit_NeoMatrix matrix;
 extern char keychar;
