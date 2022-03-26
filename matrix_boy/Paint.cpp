@@ -32,6 +32,7 @@ void Paint::Paint_app() {
             case 'w': if(posy > 0) posy--; break;
             case 'o': brush = true; break;
             case 'e': selecting_menu = true; break;
+            case 'p': print(); break;
         }
 
         while (selecting_menu)
@@ -63,4 +64,26 @@ void Paint::Paint_app() {
         
     }
     
+}
+
+void Paint::print() {
+    Serial.print('#');
+
+    for (size_t i = 0; i < colornum; i++)
+    {
+        Serial.println(colors[i]);
+    }
+    
+    Serial.print(':');
+
+    for (size_t cy = 0; cy < mapy; cy++)
+    {
+        for (size_t cx = 0; cx < mapx; cx++)
+        {
+            Serial.print( map[cx][cy] );
+            Serial.print(",");
+        }
+        Serial.println("");
+    }
+    Serial.print("!");
 }

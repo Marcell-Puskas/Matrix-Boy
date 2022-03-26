@@ -30,6 +30,8 @@ class Paint {
     uint32_t border_color = matrix.Color(255, 255, 255);
     uint32_t cursor_color = matrix.Color(255, 255, 255);
 
+    void print();
+
     public:
     void Paint_app();
 };
