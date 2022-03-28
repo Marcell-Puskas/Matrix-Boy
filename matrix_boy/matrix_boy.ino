@@ -70,7 +70,7 @@ void call_game(int game_index) {
         break;
 
         case 7:
-        gyro_test();
+        gyro_app();
         break;
     }
 }
@@ -91,8 +91,8 @@ void loop() {
         selected_game = (selected_game - 1 + app_count) % app_count;
         for (size_t i = 0; i < mapx; i++)
         {
-            matrix.drawRGBBitmap(i, 0, (bmps[ (selected_game + 1 + app_count) % app_count ]), 8, 16);
-            matrix.drawRGBBitmap(-mapx+i, 0, (bmps[selected_game]), 8, 16);
+            matrix.drawRGBBitmap(i, 0, (icons[ (selected_game + 1 + app_count) % app_count ]), iwidth, iheight);
+            matrix.drawRGBBitmap(-mapx+i, 0, (icons[selected_game]), iwidth, iheight);
             matrix.show();
             delay(anim_speed);
         }
@@ -102,8 +102,8 @@ void loop() {
         selected_game = (selected_game + 1 + app_count) % app_count;
         for (size_t i = 0; i < mapx; i++)
         {
-            matrix.drawRGBBitmap(-i, 0, (bmps[ (selected_game - 1 + app_count) % app_count ]), 8, 16);
-            matrix.drawRGBBitmap(mapx-i, 0, (bmps[selected_game]), 8, 16);
+            matrix.drawRGBBitmap(-i, 0, (icons[ (selected_game - 1 + app_count) % app_count ]), iwidth, iheight);
+            matrix.drawRGBBitmap(mapx-i, 0, (icons[selected_game]), iwidth, iheight);
             matrix.show();
             delay(anim_speed);
         }
@@ -117,12 +117,11 @@ void loop() {
         button_timeout = default_timeout;
         pause_menu = true;
 
-        //app[selected_game]();
         call_game(selected_game);
         break;
     }
 
-    matrix.drawRGBBitmap(0, 0, (bmps[selected_game]), 8, 16);
+    matrix.drawRGBBitmap(0, 0, (icons[selected_game]), iwidth, iheight);
     matrix.show();
 
     pause_menu = false;

@@ -1,40 +1,78 @@
 #include <Wire.h>
 #include "matrix_boy_IO.h"
 
+#define INT16MAX 65536
+#define INT16MIN -65535
+
 const int MPU=0x68; 
 int16_t AcX,AcY,AcZ,GyX,GyY,GyZ;
-int16_t AcXC,AcYC,AcZC,GyXC,GyYC,GyZC;
 
-int sgyro = 8;      //gyro sensitivity
-const int mgyro = 4095;  //gyro_multiplier
-const int max_sgyro = 8;
+int16_t GyY_L_max, GyY_R_max;
 
-int sacc = 8;       //acc_sensitivity
-const int macc = 4095;   //acc_multiplier
-const int max_sacc = 8;
+extern bool gyro_mode;
+
+const uint8_t PROGMEM checkmark_bmp[] = {
+    B00000000,
+    B00000001,
+    B00000010,
+    B00000100,
+    B10001000,
+    B01010000,
+    B00100000,
+    B00000000
+};
+const uint16_t checkmark_color = matrix.Color(0, 255, 0);
+
+const uint8_t PROGMEM x_bmp[] = {
+    B10000001,
+    B01000010,
+    B00100100,
+    B00011000,
+    B00011000,
+    B00100100,
+    B01000010,
+    B10000001
+};
+const uint16_t x_color = matrix.Color(255, 0, 0);
+
+void checkmark_prompt()
+{
+    matrix.clear();
+    matrix.drawBitmap(0, 0, checkmark_bmp, 8, 8, checkmark_color);
+    matrix.show();
+    delay(300);
+}
+
+void x_prompt()
+{
+    matrix.clear();
+    matrix.drawBitmap(0, 0, x_bmp, 8, 8, x_color);
+    matrix.show();
+    delay(300);
+}
 
 void gyro_setup(){
-  Wire.begin();
-  Wire.beginTransmission(MPU);
-  Wire.write(0x6B); 
-  Wire.write(0);    
-  Wire.endTransmission(true);
+    Wire.begin();
+    Wire.beginTransmission(MPU);
+    Wire.write(0x6B); 
+    Wire.write(0);    
+    Wire.endTransmission(true);
 }
 
 void gyro_read(){
-  Wire.beginTransmission(MPU);
-  Wire.write(0x3B);
-  Wire.endTransmission(false);
-  Wire.requestFrom(MPU,12,true);
-  GyX=Wire.read()<<8|Wire.read();
-  GyY=Wire.read()<<8|Wire.read();
-  GyZ=Wire.read()<<8|Wire.read();
-  AcX=Wire.read()<<8|Wire.read();
-  AcY=Wire.read()<<8|Wire.read();
-  AcZ=Wire.read()<<8|Wire.read();
+    Wire.beginTransmission(MPU);
+    Wire.write(0x3B);
+    Wire.endTransmission(false);
+    Wire.requestFrom(MPU,12,true);
+    GyX=Wire.read()<<8|Wire.read();
+    GyY=Wire.read()<<8|Wire.read();
+    GyZ=Wire.read()<<8|Wire.read();
+    AcX=Wire.read()<<8|Wire.read();
+    AcY=Wire.read()<<8|Wire.read();
+    AcZ=Wire.read()<<8|Wire.read();
 }
   
-void gyro_test() {
+void gyro_app() {
     bool run = true;
     bool gyro_or_accel_mode = true;
 
@@ -63,13 +101,11 @@ void gyro_test() {
             Serial.print("\t");
             Serial.println(GyZ);
 
-            matrix.drawLine(mapx - 3, mapy - map(GyX, -sgyro * mgyro, sgyro * mgyro, 1, mapy-1), mapx - 3, mapy - 1, x_color);
-            matrix.drawLine(mapx - 2, mapy - map(GyY, -sgyro * mgyro, sgyro * mgyro, 1, mapy-1), mapx - 2, mapy - 1, y_color);
-            matrix.drawLine(mapx - 1, mapy - map(GyZ, -sgyro * mgyro, sgyro * mgyro, 1, mapy-1), mapx - 1, mapy - 1, z_color);
+            matrix.drawLine(mapx - 3, mapy - map(GyX, INT16MIN, INT16MAX, 1, mapy-1), mapx - 3, mapy - 1, x_color);
+            matrix.drawLine(mapx - 2, mapy - map(GyY, INT16MIN, INT16MAX, 1, mapy-1), mapx - 2, mapy - 1, y_color);
+            matrix.drawLine(mapx - 1, mapy - map(GyZ, INT16MIN, INT16MAX, 1, mapy-1), mapx - 1, mapy - 1, z_color);
 
-            matrix.drawPixel(map(GyY, -sgyro * mgyro, sgyro * mgyro, 0, mapx-3), map(GyZ, -sgyro * mgyro, sgyro * mgyro, 7, mapy-1), dot_color);
-
-            matrix.drawLine(0, 0, sgyro-1, 0, sens_color);
+            matrix.drawPixel(map(GyY, INT16MIN, INT16MAX, 0, mapx-3), map(GyZ, INT16MIN, INT16MAX, 7, mapy-1), dot_color);
         }
         else
         {
@@ -79,13 +115,11 @@ void gyro_test() {
             Serial.print("\t");
             Serial.println(AcZ); 
 
-            matrix.drawLine(mapx - 3, mapy - map(AcX, -sacc * macc, sacc * macc, 1, mapy-1), mapx - 3, mapy - 1, x_color);
-            matrix.drawLine(mapx - 2, mapy - map(AcY, -sacc * macc, sacc * macc, 1, mapy-1), mapx - 2, mapy - 1, y_color);
-            matrix.drawLine(mapx - 1, mapy - map(AcZ, -sacc * macc, sacc * macc, 1, mapy-1), mapx - 1, mapy - 1, z_color);
+            matrix.drawLine(mapx - 3, mapy - map(AcX, INT16MIN, INT16MAX, 1, mapy-1), mapx - 3, mapy - 1, x_color);
+            matrix.drawLine(mapx - 2, mapy - map(AcY, INT16MIN, INT16MAX, 1, mapy-1), mapx - 2, mapy - 1, y_color);
+            matrix.drawLine(mapx - 1, mapy - map(AcZ, INT16MIN, INT16MAX, 1, mapy-1), mapx - 1, mapy - 1, z_color);
 
-            matrix.drawPixel(map(AcY, -sacc * macc, sacc * macc, 0, mapx-3), map(AcZ, -sacc * macc, sacc * macc, 7, mapy-1), dot_color);
-            
-            matrix.drawLine(0, 0, sacc-1, 0, sens_color);
+            matrix.drawPixel(map(AcY, INT16MIN, INT16MAX, 0, mapx-3), map(AcZ, INT16MIN, INT16MAX, 7, mapy-1), dot_color);
         }
         matrix.show();
 
@@ -97,15 +131,15 @@ void gyro_test() {
             case 'e':
                 run = false;
                 break;
-            
-            case 'd':
-                if(gyro_or_accel_mode){ if(sgyro < max_sgyro) sgyro++; }
-                else{ if(sacc < max_sacc) sacc++; }
-                break;
 
             case 'a':
-                if(gyro_or_accel_mode){ if(sgyro > 1) sgyro--; }
-                else{ if(sacc > 1) sacc--;}
+                GyY_L_max = GyY;
+                checkmark_prompt();
+                break;
+
+            case 'd':
+                GyY_R_max = GyY;
+                checkmark_prompt();
                 break;
             
             case 'w':
@@ -113,14 +147,18 @@ void gyro_test() {
                 Serial.println(gyro_or_accel_mode? "Gyroscope mode\nGyX\tGyY\tGyZ" : "Accelerometer mode\nAcX\tAcY\tAcZ");
                 break;
 
-            case 's':
-                AcXC = AcX;
-                AcYC = AcY;
-                AcZC = AcZ;
-                GyXC = GyX;
-                GyYC = GyY;
-                GyZC = GyZ;
+            case 'o':
+                gyro_mode = !gyro_mode;
+                Serial.print(gyro_mode ? "Gyro mode on!" : "Gyro mode off!");
+                if(gyro_mode) checkmark_prompt();
+                else x_prompt();
                 break;
         }
     }
+}
+
+int gyro_xmove(int max)
+{
+    gyro_read();
+    return map(GyY, GyY_L_max, GyY_R_max, 0, max);
 }

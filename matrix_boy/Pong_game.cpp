@@ -41,6 +41,7 @@ bool Pong::check_pong_move(int nextX, int nextY)
 
 void Pong::Pong_game()
 {
+    extern bool gyro_mode;
     run = true;
     gameover = false;
     
@@ -69,6 +70,8 @@ void Pong::Pong_game()
                 case 'a': if(pad_pos > 0) pad_pos--; break;
                 case 'e': run = false;
             }
+            if(gyro_mode) pad_pos = gyro_xmove(mapx - pad_size);
+            
             matrix.drawLine(0, mapy -1, mapx -1, mapy-1, 0);
             matrix.drawLine(pad_pos, mapy -1, pad_pos + pad_size -1, mapy-1, pad_color);
             matrix.show();

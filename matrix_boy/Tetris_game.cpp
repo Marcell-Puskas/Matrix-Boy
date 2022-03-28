@@ -91,6 +91,7 @@ bool Tetris::check_move(int nextX, int nextY, int nextDir)
 
 void Tetris::Update_input()
 {
+    extern bool gyro_mode;
     for (size_t t = 0; t < speed && run; t++)
     {
         Input();
@@ -111,6 +112,12 @@ void Tetris::Update_input()
 
             case 'e': run = false; break;
         }
+        if(gyro_mode)
+        {
+            int gyx = gyro_xmove(mapx);
+            if(check_move(gyx, posy, dir)) posx = gyx;
+        }
+        
 
         Tetris_print();
 

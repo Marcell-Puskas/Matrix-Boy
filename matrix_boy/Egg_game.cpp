@@ -15,6 +15,7 @@ void Egg::Egg_print()
 
 void Egg::Egg_game()
 {
+    extern bool gyro_mode;
     run = true;
     gameover = false;
     memset(intmap, 0, sizeof(intmap));
@@ -67,6 +68,11 @@ void Egg::Egg_game()
                     case 'd': if(pos_pad + pad_size < mapx) pos_pad++; break;
                     case 'a': if(pos_pad > 0) pos_pad--; break;
                     case 'e': run = false;
+                }
+                if(gyro_mode)
+                {
+                    pos_pad = gyro_xmove(mapx - pad_size);
+                    
                 }
                 Egg_print();
                 delay(input_update);

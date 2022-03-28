@@ -4,7 +4,7 @@
 void Snake_game();
 void Egg_game();
 void Brightness_selector();
-void gyro_test();
+void gyro_app();
 void gyro_setup();
 
 const uint16_t snake_bmp[] PROGMEM = {
@@ -159,7 +159,7 @@ const uint16_t gyro_bmp[] PROGMEM = {
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000
 };
 
-const uint16_t *bmps[] = {
+const uint16_t *icons[] = {
     snake_bmp,
     tetris_bmp,
     breakout_bmp,
@@ -169,5 +169,8 @@ const uint16_t *bmps[] = {
     brightness_bmp,
     gyro_bmp
 };
+
+const short iwidth = 8;
+const short iheight = 16;
 
 #endif

@@ -6,7 +6,8 @@
 class Paint {
     private:
     int map[mapx][mapy];
-    int posx, posy;
+    int posx = 0; 
+    int posy = 0;
     bool run = true;
     bool brush = false;
     int selected_color = 1;
