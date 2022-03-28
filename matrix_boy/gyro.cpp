@@ -105,7 +105,11 @@ void gyro_app() {
             matrix.drawLine(mapx - 2, mapy - map(GyY, INT16MIN, INT16MAX, 1, mapy-1), mapx - 2, mapy - 1, y_color);
             matrix.drawLine(mapx - 1, mapy - map(GyZ, INT16MIN, INT16MAX, 1, mapy-1), mapx - 1, mapy - 1, z_color);
 
-            matrix.drawPixel(map(GyY, INT16MIN, INT16MAX, 0, mapx-3), map(GyZ, INT16MIN, INT16MAX, 7, mapy-1), dot_color);
+            matrix.drawPixel(
+                map(GyY, GyY_L_max, GyY_R_max, 0, mapx-3), 
+                map(GyZ, INT16MIN, INT16MAX, 7, mapy-1), 
+                dot_color
+            );
         }
         else
         {
@@ -119,7 +123,11 @@ void gyro_app() {
             matrix.drawLine(mapx - 2, mapy - map(AcY, INT16MIN, INT16MAX, 1, mapy-1), mapx - 2, mapy - 1, y_color);
             matrix.drawLine(mapx - 1, mapy - map(AcZ, INT16MIN, INT16MAX, 1, mapy-1), mapx - 1, mapy - 1, z_color);
 
-            matrix.drawPixel(map(AcY, INT16MIN, INT16MAX, 0, mapx-3), map(AcZ, INT16MIN, INT16MAX, 7, mapy-1), dot_color);
+            matrix.drawPixel(
+                map(AcY, INT16MIN, INT16MAX, 0, mapx-3), 
+                map(AcZ, INT16MIN, INT16MAX, 7, mapy-1), 
+                dot_color
+            );
         }
         matrix.show();
 
@@ -160,5 +168,11 @@ void gyro_app() {
 int gyro_xmove(int max)
 {
     gyro_read();
-    return map(GyY, GyY_L_max, GyY_R_max, 0, max);
+    return map( 
+        constrain(GyY, GyY_L_max, GyY_R_max), 
+        GyY_L_max, 
+        GyY_R_max, 
+        0, 
+        max
+    );
 }
