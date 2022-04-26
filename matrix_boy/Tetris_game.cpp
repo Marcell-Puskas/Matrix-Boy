@@ -124,8 +124,9 @@ void Tetris::Update_input()
                 {
                     gyro_down_timeout = millis();
                     if(check_move(posx, posy + 1, dir)) posy++;
-                    Serial.println(milllis()); //debug
+                    Serial.print("nononononononononononononononononononononononono");
                 }
+                Serial.println(millis());
             }
         }
         
