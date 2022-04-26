@@ -71,7 +71,7 @@ void Egg::Egg_game()
                 }
                 if(gyro_mode)
                 {
-                    pos_pad = gyro_xmove(mapx - pad_size);
+                    pos_pad = gyro_xmove(0, mapx - pad_size);
                     
                 }
                 Egg_print();

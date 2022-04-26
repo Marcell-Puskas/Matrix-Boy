@@ -180,26 +180,26 @@ void gyro_app() {
     }
 }
 
-int gyro_xmove(int max)
+int gyro_xmove(int min, int max)
 {
     gyro_read();
     return map( 
         constrain(GyY, GyY_L_max, GyY_R_max), 
         GyY_L_max, 
         GyY_R_max, 
-        0, 
+        min, 
         max
     );
 }
 
-int gyro_ymove(int max)
+int gyro_ymove(int min, int max)
 {
     gyro_read();
     return map(
         constrain(GyX, GyX_U_max, GyX_D_max), 
         GyX_U_max, 
         GyX_D_max, 
-        0, 
+        min, 
         max
     );
 }

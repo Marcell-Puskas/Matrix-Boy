@@ -152,8 +152,8 @@ void Snake_game()
 
             if(gyro_mode)
             {
-                int gyx = gyro_xmove(10);
-                int gyy = gyro_ymove(10);
+                int gyx = gyro_xmove(0, 10);
+                int gyy = gyro_ymove(0, 10);
                 if(gyx >= 8) dir_input = 0;
                 if(gyx <= 2) dir_input = 1;
                 if(gyy >= 8) dir_input = 2;

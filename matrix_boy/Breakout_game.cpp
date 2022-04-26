@@ -127,7 +127,7 @@ void Breakout::Breakout_game()
                 case 'e': run = false;
                 case 't': testmode = !testmode;
             }
-            if(gyro_mode) pad_pos = gyro_xmove(mapx - pad_size);
+            if(gyro_mode) pad_pos = gyro_xmove(0, mapx - pad_size);
             
             matrix.drawFastHLine(0, mapy -1, mapx, 0);
             matrix.drawFastHLine(pad_pos, mapy -1, pad_size, pad_color);

@@ -3,8 +3,9 @@
     "configurations": [
         {
             "name": "Arduino",
-            "compilerPath": "C:\\Users\\Tanuló\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\bin\\avr-g++",
+            "compilerPath": "C:\\Users\\puska\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\bin\\avr-g++",
             "compilerArgs": [
+                "-w",
                 "-std=gnu++11",
                 "-fpermissive",
                 "-fno-exceptions",
@@ -15,23 +16,26 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "C:\\Users\\Tanuló\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\cores\\arduino",
-                "C:\\Users\\Tanuló\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\variants\\eightanaloginputs",
-                "C:\\Users\\Tanuló\\Documents\\Arduino\\libraries\\Adafruit_GFX_Library",
-                "C:\\Users\\Tanuló\\Documents\\Arduino\\libraries\\Adafruit_NeoMatrix",
-                "C:\\Users\\Tanuló\\Documents\\Arduino\\libraries\\Adafruit_NeoPixel",
-                "C:\\Users\\Tanuló\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\libraries\\Wire\\src",
-                "C:\\Users\\Tanuló\\Documents\\Arduino\\libraries\\Adafruit_BusIO",
-                "C:\\Users\\Tanuló\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\libraries\\SPI\\src"
+                "C:\\Users\\puska\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\cores\\arduino",
+                "C:\\Users\\puska\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\variants\\eightanaloginputs",
+                "C:\\Users\\puska\\OneDrive\\Program Data\\Arduino\\libraries\\Adafruit_GFX_Library",
+                "C:\\Users\\puska\\OneDrive\\Program Data\\Arduino\\libraries\\Adafruit_NeoMatrix",
+                "C:\\Users\\puska\\OneDrive\\Program Data\\Arduino\\libraries\\Adafruit_NeoPixel",
+                "C:\\Users\\puska\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\libraries\\Wire\\src",
+                "C:\\Users\\puska\\OneDrive\\Program Data\\Arduino\\libraries\\Adafruit_BusIO",
+                "C:\\Users\\puska\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\libraries\\SPI\\src",
+                "c:\\users\\puska\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\lib\\gcc\\avr\\7.3.0\\include",
+                "c:\\users\\puska\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\lib\\gcc\\avr\\7.3.0\\include-fixed",
+                "c:\\users\\puska\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\avr\\include"
             ],
             "forcedInclude": [
-                "C:\\Users\\Tanuló\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\cores\\arduino\\Arduino.h"
+                "C:\\Users\\puska\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.4\\cores\\arduino\\Arduino.h"
             ],
             "cStandard": "c11",
             "cppStandard": "c++11",
             "defines": [
                 "F_CPU=16000000L",
-                "ARDUINO=10816",
+                "ARDUINO=10813",
                 "ARDUINO_AVR_NANO",
                 "ARDUINO_ARCH_AVR",
                 "__DBL_MIN_EXP__=(-125)",

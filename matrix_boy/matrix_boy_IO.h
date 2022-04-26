@@ -12,8 +12,8 @@
 
 void Input(bool no_timeout = false);
 void gyro_read();
-int gyro_xmove(int max);
-int gyro_ymove(int max);
+int gyro_xmove(int min, int max);
+int gyro_ymove(int min, int max);
 
 extern Adafruit_NeoMatrix matrix;
 extern char keychar;

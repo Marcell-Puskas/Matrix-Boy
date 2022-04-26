@@ -70,7 +70,7 @@ void Pong::Pong_game()
                 case 'a': if(pad_pos > 0) pad_pos--; break;
                 case 'e': run = false;
             }
-            if(gyro_mode) pad_pos = gyro_xmove(mapx - pad_size);
+            if(gyro_mode) pad_pos = gyro_xmove(0, mapx - pad_size);
             
             matrix.drawLine(0, mapy -1, mapx -1, mapy-1, 0);
             matrix.drawFastHLine(pad_pos, mapy -1, pad_size, pad_color);
