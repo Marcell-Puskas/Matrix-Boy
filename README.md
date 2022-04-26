@@ -14,13 +14,12 @@ more info at: https://lcd-image-converter.riuson.com/
 ## Planned games
  - Atari Space Invaders
 ## Ideas
- - Utilize eprom memory for saveing settings and paint images
+ - Utilize eeprom memory for saveing settings and paint images
  - Transfer paint images to or form computer
  - Sound
  - Toutch screen
 ## Todo
  - Update images
- - Bugfix breakout
  - Better pong AI
  - Make games less difficult
  - Update Snake icon
