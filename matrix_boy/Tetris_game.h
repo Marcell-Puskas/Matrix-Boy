@@ -46,6 +46,9 @@ private:
     int posx, posy, dir, selected_index, points, speed;
     bool run, gameover;
 
+    long gyro_down_timeout = 0;
+    long gyro_down_speed = 30;
+
     int selected_tetro[4][2];
     int construncted_tetro[4][2];
     int intmap[mapx][mapy];

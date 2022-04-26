@@ -42,6 +42,10 @@ class Breakout: public Ballgames {
     bool bricks_map[coloums][rows];
     
     bool check_move(int nextX, int nextY);
+    void hit_log(int nextX, int nextY, int f);
+    void print();
+
+    bool testmode = false;
 
     public:
     void Breakout_game();

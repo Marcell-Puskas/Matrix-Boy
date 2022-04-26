@@ -9,7 +9,7 @@ void Egg::Egg_print()
             matrix.drawPixel(cx, cy, egg_colors[ intmap[cx][cy] ]);
         }   
     }
-    matrix.drawLine(pos_pad, mapy -1, pos_pad + pad_size -1, mapy-1, pad_color);
+    matrix.drawFastHLine(pos_pad, mapy -1, pad_size, pad_color);
     matrix.show();
 }
 

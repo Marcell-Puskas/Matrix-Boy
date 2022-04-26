@@ -7,6 +7,7 @@
 const int MPU=0x68; 
 int16_t AcX,AcY,AcZ,GyX,GyY,GyZ;
 
+int16_t GyX_U_max, GyX_D_max;
 int16_t GyY_L_max, GyY_R_max;
 
 extern bool gyro_mode;
@@ -35,18 +36,22 @@ const uint8_t PROGMEM x_bmp[] = {
 };
 const uint16_t x_color = matrix.Color(255, 0, 0);
 
-void checkmark_prompt()
+void checkmark_prompt(char c)
 {
     matrix.clear();
-    matrix.drawBitmap(0, 0, checkmark_bmp, 8, 8, checkmark_color);
+    matrix.setCursor(0, 0);
+    matrix.print(c);
+    matrix.drawBitmap(0, mapy - 8, checkmark_bmp, 8, 8, checkmark_color);
     matrix.show();
     delay(300);
 }
 
-void x_prompt()
+void x_prompt(char c)
 {
     matrix.clear();
-    matrix.drawBitmap(0, 0, x_bmp, 8, 8, x_color);
+    matrix.setCursor(0, 0);
+    matrix.print(c);
+    matrix.drawBitmap(0, mapy - 8, x_bmp, 8, 8, x_color);
     matrix.show();
     delay(300);
 }
@@ -90,7 +95,7 @@ void gyro_app() {
     {
         gyro_read();
         matrix.clear();
-        matrix.setCursor(0, 1);
+        matrix.setCursor(0, 0);
         matrix.print(gyro_or_accel_mode? "G" : "A");
 
         if(gyro_or_accel_mode)
@@ -107,7 +112,7 @@ void gyro_app() {
 
             matrix.drawPixel(
                 map(GyY, GyY_L_max, GyY_R_max, 0, mapx-3), 
-                map(GyZ, INT16MIN, INT16MAX, 7, mapy-1), 
+                map(GyZ, GyX_D_max, GyX_U_max, 7, mapy-1), 
                 dot_color
             );
         }
@@ -142,15 +147,25 @@ void gyro_app() {
 
             case 'a':
                 GyY_L_max = GyY;
-                checkmark_prompt();
+                checkmark_prompt('L');
                 break;
 
             case 'd':
                 GyY_R_max = GyY;
-                checkmark_prompt();
+                checkmark_prompt('R');
+                break;
+
+            case 'w':
+                GyX_U_max = GyX;
+                checkmark_prompt('U');
+                break;
+
+            case 's':
+                GyX_D_max = GyX;
+                checkmark_prompt('D');
                 break;
             
-            case 'w':
+            case 'k':
                 gyro_or_accel_mode = !gyro_or_accel_mode;
                 Serial.println(gyro_or_accel_mode? "Gyroscope mode\nGyX\tGyY\tGyZ" : "Accelerometer mode\nAcX\tAcY\tAcZ");
                 break;
@@ -158,8 +173,8 @@ void gyro_app() {
             case 'o':
                 gyro_mode = !gyro_mode;
                 Serial.print(gyro_mode ? "Gyro mode on!" : "Gyro mode off!");
-                if(gyro_mode) checkmark_prompt();
-                else x_prompt();
+                if(gyro_mode) checkmark_prompt('G');
+                else x_prompt('G');
                 break;
         }
     }
@@ -172,6 +187,18 @@ int gyro_xmove(int max)
         constrain(GyY, GyY_L_max, GyY_R_max), 
         GyY_L_max, 
         GyY_R_max, 
+        0, 
+        max
+    );
+}
+
+int gyro_ymove(int max)
+{
+    gyro_read();
+    return map(
+        constrain(GyX, GyX_U_max, GyX_D_max), 
+        GyX_U_max, 
+        GyX_D_max, 
         0, 
         max
     );

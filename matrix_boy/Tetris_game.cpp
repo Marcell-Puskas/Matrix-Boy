@@ -116,6 +116,18 @@ void Tetris::Update_input()
         {
             int gyx = gyro_xmove(mapx);
             if(check_move(gyx, posy, dir)) posx = gyx;
+
+            if(gyro_ymove(5) > 3)
+            {
+                gyro_down_speed = gyro_ymove(1000);
+                if(gyro_down_timeout + gyro_down_speed < millis())
+                {
+                    gyro_down_timeout = millis();
+                    if(check_move(posx, posy + 1, dir)) posy++;
+                    Serial.print("nononononononononononononononononononononononono");
+                }
+                Serial.println(millis());
+            }
         }
         
 
@@ -137,7 +149,7 @@ void Tetris::Check_full_line()
         
         if(line_full)
         {
-            matrix.drawLine(0, cline, mapx - 1, cline, full_line_color);
+            matrix.drawFastHLine(0, cline, mapx, full_line_color);
             
             lines_to_clear = true;
             points++;

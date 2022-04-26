@@ -29,6 +29,7 @@ void Snake_game()
     int foody = random(mapy);
     int dir_input = 0;
 
+    extern bool gyro_mode;
 
     memset(intmap, 0, sizeof(intmap));
 
@@ -148,6 +149,20 @@ void Snake_game()
                 case 'e': run = false; break;
             }
             delay(10);
+
+            if(gyro_mode)
+            {
+                int gyx = gyro_xmove(10);
+                int gyy = gyro_ymove(10);
+                if(gyx >= 8) dir_input = 0;
+                if(gyx <= 2) dir_input = 1;
+                if(gyy >= 8) dir_input = 2;
+                if(gyy <= 2) dir_input = 3;
+
+                Serial.print(gyx);
+                Serial.print("\t");
+                Serial.println(gyy);
+            }
         }
     }
 

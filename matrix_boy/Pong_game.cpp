@@ -55,8 +55,8 @@ void Pong::Pong_game()
     while(run)
     {
         matrix.clear();
-        matrix.drawLine(pad_pos, mapy -1, pad_pos + pad_size -1, mapy-1, pad_color);
-        matrix.drawLine(enemy_pos, 0, enemy_pos + enemy_size -1, 0, enemy_color);
+        matrix.drawFastHLine(pad_pos, mapy -1, pad_size, pad_color);
+        matrix.drawFastHLine(enemy_pos, 0, enemy_size, enemy_color);
 
         matrix.drawPixel(posx, posy, ball_color);
         matrix.show();
@@ -73,7 +73,7 @@ void Pong::Pong_game()
             if(gyro_mode) pad_pos = gyro_xmove(mapx - pad_size);
             
             matrix.drawLine(0, mapy -1, mapx -1, mapy-1, 0);
-            matrix.drawLine(pad_pos, mapy -1, pad_pos + pad_size -1, mapy-1, pad_color);
+            matrix.drawFastHLine(pad_pos, mapy -1, pad_size, pad_color);
             matrix.show();
             delay(input_update);
         }

@@ -33,7 +33,7 @@ void Brightness_selector()
         matrix.clear();
         matrix.setCursor(0, 0);
         matrix.print(bright);
-        matrix.drawLine(mapx -1 , mapy - bright, mapx -1, mapy - 1, color_slide);
+        matrix.drawFastVLine(mapx -1 , mapy - bright, bright, color_slide);
         matrix.show();
 
         delay(input_update);
