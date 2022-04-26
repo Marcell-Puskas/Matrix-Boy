@@ -22,8 +22,6 @@ more info at: https://lcd-image-converter.riuson.com/
  - Update images
  - Better pong AI
  - Make games less difficult
- - Update Snake icon
- - Update Gyro icon
  - Add comments
 ## Pictures
 <img src="https://raw.githubusercontent.com/Marcell-Puskas/matrix-boy/master/pictures/game_snake.jpg">
