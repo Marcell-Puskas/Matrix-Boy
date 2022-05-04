@@ -4,6 +4,11 @@ void Paint::Paint_app() {
     pause_menu = false;
     memset(map, -1, sizeof(map));
 
+    up_timeout = 15;
+    down_timeout = 15;
+    left_timeout = 15;
+    right_timeout = 15;
+
     while (run)
     {
         matrix.clear();
@@ -40,9 +45,20 @@ void Paint::Paint_app() {
             matrix.clear();
             for (size_t cc = 0; cc < colornum; cc++)
             {
-                matrix.drawRect(1, 1 + cc * 2, mapx - 2, 1, colors[cc]);
+                matrix.drawFastHLine(
+                    1,              //x cordinte
+                    1 + cc * 2,     //y cordinate
+                    mapx - 2,       //width
+                    colors[cc]
+                );
             }
-            matrix.drawRect(0, selected_color * 2, mapx, 3, border_color);
+            matrix.drawRect(
+                0,                  //x cordinate
+                selected_color * 2, //y cordinate
+                mapx,               //width
+                3,                  //height
+                border_color
+            );
             matrix.show();
             
             Input();

@@ -10,7 +10,7 @@ class Paint {
     int posy = 0;
     bool run = true;
     bool brush = false;
-    int selected_color = 1;
+    int selected_color = 0;
     bool selecting_menu = false;
 
     bool cursor_blink = false;
@@ -19,14 +19,14 @@ class Paint {
 
     static const int colornum = 8;
     uint32_t colors[colornum] = {
-        0,
         matrix.Color(255, 0, 0),
         matrix.Color(255, 255, 0),
         matrix.Color(0, 255, 0),
         matrix.Color(0, 255, 255),
         matrix.Color(0, 0, 255),
         matrix.Color(255, 0, 255),
-        matrix.Color(255, 255, 255)
+        matrix.Color(255, 255, 255),
+        0
     };
     uint32_t border_color = matrix.Color(255, 255, 255);
     uint32_t cursor_color = matrix.Color(255, 255, 255);

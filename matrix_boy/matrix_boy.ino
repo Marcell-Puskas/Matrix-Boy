@@ -114,14 +114,14 @@ void loop() {
         break;
 
         case 'o':
+        call_game(selected_game);
+
         up_timeout = default_timeout;
         down_timeout = default_timeout;
         left_timeout = default_timeout;
         right_timeout = default_timeout;
         button_timeout = default_timeout;
         pause_menu = true;
-
-        call_game(selected_game);
         break;
     }
 
