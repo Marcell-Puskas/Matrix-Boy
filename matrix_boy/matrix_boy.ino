@@ -9,8 +9,8 @@
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 1, 2, 6, NEO_TILE_TOP, NEO_GRB);
 //matrixWidth, matrixHeight, tilesX, tilesY, pin, matrixType, ledType
 
-//static const 
-const int app_count = 8;
+//static const
+const int app_count = 9;
 const int anim_speed = 25;
 
 int bright = 2;
@@ -71,6 +71,10 @@ void call_game(int game_index) {
 
         case 7:
         gyro_app();
+        break;
+
+        case 8:
+        color_test();
         break;
     }
 }
