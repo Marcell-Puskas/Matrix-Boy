@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include "matrix_boy_IO.h"
+#include "settings-eeprom.h"
 
 #define INT16MAX 65536
 #define INT16MIN -65535
@@ -7,8 +8,8 @@
 const int MPU=0x68; 
 int16_t AcX,AcY,AcZ,GyX,GyY,GyZ;
 
-int16_t GyX_U_max, GyX_D_max;
-int16_t GyY_L_max, GyY_R_max;
+extern int16_t GyX_U_max, GyX_D_max;
+extern int16_t GyY_L_max, GyY_R_max;
 
 extern bool gyro_mode;
 
@@ -148,21 +149,25 @@ void gyro_app() {
             case 'a':
                 GyY_L_max = GyY;
                 checkmark_prompt('L');
+                eeprom_save();
                 break;
 
             case 'd':
                 GyY_R_max = GyY;
                 checkmark_prompt('R');
+                eeprom_save();
                 break;
 
             case 'w':
                 GyX_U_max = GyX;
                 checkmark_prompt('U');
+                eeprom_save();
                 break;
 
             case 's':
                 GyX_D_max = GyX;
                 checkmark_prompt('D');
+                eeprom_save();
                 break;
             
             case 'k':

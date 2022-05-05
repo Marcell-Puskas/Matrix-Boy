@@ -1,5 +1,6 @@
 #include "matrix_boy_IO.h"
 #include "matrix_boy_apps.h"
+#include "settings-eeprom.h"
 
 #include "Tetris_game.h"
 #include "ballgames.h"
@@ -22,6 +23,16 @@ int timeout_x, timeout_y, timeout_b;
 bool pause_menu;
 bool gyro_mode = false;
 char keychar;
+
+int16_t GyX_U_max, GyX_D_max;
+int16_t GyY_L_max, GyY_R_max;
+
+byte settingnum = 4;
+
+int16_t *settings[] = {
+    &GyX_U_max, &GyX_D_max,
+    &GyY_L_max, &GyY_R_max
+};
 
 void call_game(int game_index) {
     switch (game_index)
@@ -86,6 +97,7 @@ void setup() {
     Serial.println("MatrixBoy Running");
     pinMode(JOYB, INPUT_PULLUP);
     gyro_setup();
+    eeprom_load();
 }
 
 void loop() {
