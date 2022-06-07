@@ -196,8 +196,8 @@ void Tetris::Tetris_game()
 {
     matrix.clear();
 
-    up_timeout = 14;
-    down_timeout = 3;
+    up_timeout = 140;
+    down_timeout = 30;
 
     points = 0;
     speed = 50;

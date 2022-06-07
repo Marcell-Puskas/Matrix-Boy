@@ -14,6 +14,9 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 1, 2, 6, NEO_TILE_TOP, NEO_
 const int app_count = 9;
 const int anim_speed = 25;
 
+const int xcenter = mapx / 2 - iwidth / 2;
+const int ycenter = mapy / 2 - iheight / 2;
+
 int bright = 2;
 
 int selected_game = 0;
@@ -107,8 +110,9 @@ void loop() {
         selected_game = (selected_game - 1 + app_count) % app_count;
         for (size_t i = 0; i < mapx; i++)
         {
-            matrix.drawRGBBitmap(i, 0, (icons[ (selected_game + 1 + app_count) % app_count ]), iwidth, iheight);
-            matrix.drawRGBBitmap(-mapx+i, 0, (icons[selected_game]), iwidth, iheight);
+            matrix.clear();
+            matrix.drawRGBBitmap(xcenter + i, ycenter, (icons[ (selected_game + 1 + app_count) % app_count ]), iwidth, iheight);
+            matrix.drawRGBBitmap(xcenter - mapx + i, ycenter, (icons[selected_game]), iwidth, iheight);
             matrix.show();
             delay(anim_speed);
         }
@@ -118,26 +122,27 @@ void loop() {
         selected_game = (selected_game + 1 + app_count) % app_count;
         for (size_t i = 0; i < mapx; i++)
         {
-            matrix.drawRGBBitmap(-i, 0, (icons[ (selected_game - 1 + app_count) % app_count ]), iwidth, iheight);
-            matrix.drawRGBBitmap(mapx-i, 0, (icons[selected_game]), iwidth, iheight);
+            matrix.clear();
+            matrix.drawRGBBitmap(xcenter - i, ycenter, (icons[ (selected_game - 1 + app_count) % app_count ]), iwidth, iheight);
+            matrix.drawRGBBitmap(xcenter + mapx - i, ycenter, (icons[selected_game]), iwidth, iheight);
             matrix.show();
             delay(anim_speed);
         }
         break;
 
         case 'o':
-        call_game(selected_game);
-
         up_timeout = default_timeout;
         down_timeout = default_timeout;
         left_timeout = default_timeout;
         right_timeout = default_timeout;
         button_timeout = default_timeout;
         pause_menu = true;
+        call_game(selected_game);
         break;
     }
 
-    matrix.drawRGBBitmap(0, 0, (icons[selected_game]), iwidth, iheight);
+    matrix.clear();
+    matrix.drawRGBBitmap(xcenter, ycenter, (icons[selected_game]), iwidth, iheight);
     matrix.show();
 
     pause_menu = false;

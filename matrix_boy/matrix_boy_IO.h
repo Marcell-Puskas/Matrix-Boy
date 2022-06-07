@@ -10,6 +10,9 @@
 #define JOYY A1
 #define JOYB 9
 
+const int b_down = 0;
+const int b_up = 1;
+
 void Input(bool no_timeout = false);
 void gyro_read();
 int gyro_xmove(int min, int max);
@@ -23,9 +26,9 @@ extern bool pause_menu;
 
 const int mapx = 8;
 const int mapy = 16;
-const int default_timeout = 10;
-const int restart_timeout = 50;
-const int exit_timeout = 100;
+const int default_timeout = 100;
+const int restart_timeout = 500;
+const int exit_timeout = 1000;
 const int input_update = 10;
 const int joy_high_threshold = 640;
 const int joy_low_threshold = 384;

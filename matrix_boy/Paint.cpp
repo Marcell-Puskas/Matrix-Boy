@@ -4,10 +4,10 @@ void Paint::Paint_app() {
     pause_menu = false;
     memset(map, -1, sizeof(map));
 
-    up_timeout = 15;
-    down_timeout = 15;
-    left_timeout = 15;
-    right_timeout = 15;
+    up_timeout = 150;
+    down_timeout = 150;
+    left_timeout = 150;
+    right_timeout = 150;
 
     while (run)
     {
