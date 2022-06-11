@@ -19,8 +19,8 @@ void Input(bool no_timeout)
     Serial.print("\t");
     Serial.println(digitalRead(JOYB)); */
 
-    Serial.print("free Mem: ");
-    Serial.println(freeMemory());
+    /* Serial.print("free Mem: ");
+    Serial.println(freeMemory()); */
 
     if(analogRead(JOYX) < joy_low_threshold)
     {

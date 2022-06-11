@@ -2,8 +2,6 @@
 
 void Breakout::hit_log(byte moveX, byte moveY, byte f = 0)
 {
-    Serial.print("hits: ");
-    Serial.print(hits);
     if(testmode)
     {
         Serial.print("dir: ");
@@ -117,6 +115,7 @@ void Breakout::Breakout_game()
     extern bool gyro_mode;
     run = true;
     gameover = false;
+    win = false;
     memset(bricks_map, 0, sizeof(bricks_map));
     
     posx = random(mapx);
@@ -203,11 +202,13 @@ void Breakout::Breakout_game()
     if(win)
     {
         matrix.print("W");
+        matrix.show();
+        delay(score_time);
     }
-    else
+    else if(gameover)
     {
         matrix.print(hits);
+        matrix.show();
+        delay(score_time);
     }
-    matrix.show();
-    delay(score_time);
 }

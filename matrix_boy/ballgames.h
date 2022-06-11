@@ -49,7 +49,6 @@ class Breakout: public Ballgames {
     void print();
 
     bool testmode = false;
-    bool win = false;
 
     byte hits;
 
