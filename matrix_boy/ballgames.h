@@ -5,8 +5,6 @@
 
 class Ballgames {
     protected:
-    static const int rows = 8;
-    static const int coloums = mapx / 2;
     const int pad_size = 3;
 
     const uint32_t ball_color = matrix.Color(255, 255, 255);
@@ -28,6 +26,11 @@ class Ballgames {
 
 class Breakout: public Ballgames {
     private:
+    static const int rows = 8;
+    static const int coloums = mapx / 2;
+
+    const int all_bricks = rows * coloums;
+
     const uint32_t row_colors[8] = {
         matrix.Color(255, 0, 0),
         matrix.Color(255, 0, 0),
@@ -46,6 +49,9 @@ class Breakout: public Ballgames {
     void print();
 
     bool testmode = false;
+    bool win = false;
+
+    int hits;
 
     public:
     void Breakout_game();

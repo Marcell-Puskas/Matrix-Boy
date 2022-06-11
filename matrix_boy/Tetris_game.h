@@ -8,7 +8,6 @@ private:
     const int tetro_num = 7;
     const int mino_num = 4;
     const int clear_time = 400;
-    const int score_time = 2000;
 
     const int tetro_cordinates[7][4][2] = {
         {{0, 1}, {1, 1}, {2, 1}, {3, 1}},

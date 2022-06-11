@@ -32,6 +32,7 @@ const int exit_timeout = 1000;
 const int input_update = 10;
 const int joy_high_threshold = 640;
 const int joy_low_threshold = 384;
+const int score_time = 2000;
 const uint32_t pause_color = matrix.Color(255, 255, 255);
 
 #endif

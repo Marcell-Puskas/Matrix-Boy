@@ -5,6 +5,5 @@
     "programmer": "arduino:avrispmkii",
     "sketch": "matrix_boy.ino",
     "output": "./.build",
-    "prebuild": "C:\\Users\\puska\\OneDrive\\files\\Code\\bat\\arduino_prebuild.bat",
-    "postbuild": "C:\\Users\\puska\\OneDrive\\files\\Code\\bat\\arduino_postbuild.bat"
+    "prebuild": "C:\\Users\\puska\\OneDrive\\files\\Code\\bat\\arduino_prebuild.bat"
 }

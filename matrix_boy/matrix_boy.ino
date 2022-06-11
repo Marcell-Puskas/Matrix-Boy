@@ -7,6 +7,8 @@
 #include "Egg_game.h"
 #include "Paint.h"
 
+#include "freeMemory.h"
+
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 1, 2, 6, NEO_TILE_TOP, NEO_GRB);
 //matrixWidth, matrixHeight, tilesX, tilesY, pin, matrixType, ledType
 

@@ -2,25 +2,32 @@
 
 void Breakout::hit_log(int moveX, int moveY, int f = 0)
 {
-    Serial.print("dir: ");
-    Serial.print(dir);
-    Serial.print("  posx: ");
-    Serial.print(posx);
-    Serial.print("  posy: ");
-    Serial.print(posy);
-    Serial.print("  moveX: ");
-    Serial.print(moveX);
-    Serial.print("  moveY: ");
-    Serial.print(moveY);
-    Serial.print("  function number: ");
-    Serial.println(f);
-
-    print();
-
-    while (keychar != 'e' && testmode)
+    Serial.print("hits: ");
+    Serial.print(hits);
+    if(testmode)
     {
-        delay(10);
-        Input();
+        Serial.print("dir: ");
+        Serial.print(dir);
+        Serial.print("  posx: ");
+        Serial.print(posx);
+        Serial.print("  posy: ");
+        Serial.print(posy);
+        Serial.print("  moveX: ");
+        Serial.print(moveX);
+        Serial.print("  moveY: ");
+        Serial.print(moveY);
+        Serial.print("  function number: ");
+        Serial.print(f);
+        Serial.print("  hits: ");
+        Serial.println(hits);
+
+        print();
+
+        while (keychar != 'e')
+        {
+            delay(10);
+            Input();
+        }
     }
     
 }
@@ -43,12 +50,14 @@ bool Breakout::check_move(int nextX, int nextY)
             dir = bounce_corner[dir];
             bricks_map[nextX / 2][posy] = true;
             bricks_map[posx / 2][nextY] = true;
+            hits += 2;
             hit_log(nextX, nextY, 1);
         }
         else if(!bricks_map[nextX / 2][posy] && nextY < rows - 1)
         {
             dir = bounce_vertical[dir];
             bricks_map[nextX / 2][posy] = true;
+            hits++;
             hit_log(nextX, nextY, 2);
         }
     
@@ -56,12 +65,14 @@ bool Breakout::check_move(int nextX, int nextY)
         {
             dir = bounce_horisontal[dir];
             bricks_map[posx / 2][nextY] = true;
+            hits++;
             hit_log(nextX, nextY, 3);
         }
         else if(!bricks_map[nextX / 2][nextY])
         {
             dir = bounce_corner[dir];
             bricks_map[nextX / 2][nextY] = true;
+            hits++;
             hit_log(nextX, nextY, 4);
         }
         else return true;
@@ -113,11 +124,13 @@ void Breakout::Breakout_game()
     dir = 0;
     speed = 25;
 
+    hits = 0;
+
     while(run)
     {
         print();
 
-        for (size_t i = 0; i < speed; i++)
+        for (size_t i = 0; i < 5 + (all_bricks - hits); i++)
         {
             Input();
             switch (keychar)
@@ -178,5 +191,23 @@ void Breakout::Breakout_game()
                 break;
             }
         }
+        if(hits >= all_bricks) 
+        {
+            run = false;
+            win = true;
+        }
     }
+
+    matrix.clear();
+    matrix.setCursor(0, 0);
+    if(win)
+    {
+        matrix.print("W");
+    }
+    else
+    {
+        matrix.print(hits);
+    }
+    matrix.show();
+    delay(score_time);
 }

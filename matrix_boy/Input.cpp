@@ -5,6 +5,8 @@ long xtime, ytime, btime;
 long blasttime;
 bool b_pressed = false;
 
+extern int freeMemory();
+
 void Input(bool no_timeout)
 {
     keychar = 'n';
@@ -16,6 +18,9 @@ void Input(bool no_timeout)
     Serial.print(analogRead(JOYY));
     Serial.print("\t");
     Serial.println(digitalRead(JOYB)); */
+
+    Serial.print("free Mem: ");
+    Serial.println(freeMemory());
 
     if(analogRead(JOYX) < joy_low_threshold)
     {
