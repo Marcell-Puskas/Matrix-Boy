@@ -192,7 +192,7 @@ const uint16_t *icons[] = {
     color_bmp
 };
 
-const short iwidth = 8;
-const short iheight = 16;
+const byte iwidth = 8;
+const byte iheight = 16;
 
 #endif

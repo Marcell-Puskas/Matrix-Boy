@@ -1,7 +1,7 @@
 #include "Tetris_game.h"
 
-void Tetris::Construct_tetro(int cdir, bool select = false) {
-    for (int cmino = 0; cmino < mino_num; cmino++)
+void Tetris::Construct_tetro(byte cdir, bool select = false) {
+    for (byte cmino = 0; cmino < mino_num; cmino++)
     {
         switch (cdir)
         {
@@ -28,7 +28,7 @@ void Tetris::Construct_tetro(int cdir, bool select = false) {
     }
     if(select)
     {
-        for (int cmino = 0; cmino < mino_num; cmino++)
+        for (byte cmino = 0; cmino < mino_num; cmino++)
         {
             selected_tetro[cmino][0] = construncted_tetro[cmino][0];
             selected_tetro[cmino][1] = construncted_tetro[cmino][1];
@@ -50,12 +50,12 @@ void Tetris::New_tetro()
 void Tetris::Tetris_print()
 {
     //draw stack
-    for (int cy = 0; cy < mapy; cy++)
+    for (byte cy = 0; cy < mapy; cy++)
     {
-        for (int cx = 0; cx < mapx; cx++)
+        for (byte cx = 0; cx < mapx; cx++)
         {
-            if(intmap[cx][cy] != -1)
-                matrix.drawPixel(cx, cy, (tetro_colors[intmap[cx][cy]]) );
+            if(map[cx][cy] != -1)
+                matrix.drawPixel(cx, cy, (tetro_colors[map[cx][cy]]) );
             else
                 matrix.drawPixel(cx, cy, background_color);
         }
@@ -73,17 +73,17 @@ void Tetris::Tetris_print()
     matrix.show();
 }
 
-bool Tetris::check_move(int nextX, int nextY, int nextDir)
+bool Tetris::check_move(int8_t nextX, int8_t nextY, byte nextDir)
 {
     Construct_tetro(nextDir);
-    for(int cmino = 0; cmino < mino_num; cmino++)
+    for(byte cmino = 0; cmino < mino_num; cmino++)
     {
         if(nextX + construncted_tetro[cmino][0] >= mapx) return false;
         if(nextX + construncted_tetro[cmino][0] < 0) return false;
         if(nextY + construncted_tetro[cmino][1] >= mapy) return false;
         if(nextY + construncted_tetro[cmino][1] < 0) return false;
 
-        if(intmap[ nextX + construncted_tetro[cmino][0] ][ nextY + construncted_tetro[cmino][1] ] != -1)
+        if(map[ nextX + construncted_tetro[cmino][0] ][ nextY + construncted_tetro[cmino][1] ] != -1)
             return false;
     }
     return true;
@@ -114,7 +114,7 @@ void Tetris::Update_input()
         }
         if(gyro_mode)
         {
-            int gyx = gyro_xmove(-2, mapx);
+            int8_t gyx = gyro_xmove(-2, mapx);
             if(check_move(gyx, posy, dir)) posx = gyx;
 
             gyro_down_speed = 1000 - gyro_ymove(20, 1000);
@@ -139,7 +139,7 @@ void Tetris::Check_full_line()
     {
         bool line_full = true;
         for (size_t crow = 0; crow < mapx; crow++)
-            if(intmap[crow][cline] == -1)
+            if(map[crow][cline] == -1)
                 line_full = false;
         
         if(line_full)
@@ -152,7 +152,7 @@ void Tetris::Check_full_line()
 
             for (size_t copyy = cline; copyy >= 1; copyy--)
                     for (size_t copyx = 0; copyx < mapx; copyx++)
-                        intmap[copyx][copyy] = intmap[copyx][copyy - 1];
+                        map[copyx][copyy] = map[copyx][copyy - 1];
         }
     }
 
@@ -180,9 +180,9 @@ void Tetris::Logic()
     }
     else
     {
-        for(int cmino = 0; cmino < mino_num; cmino++)
+        for(byte cmino = 0; cmino < mino_num; cmino++)
         {
-            intmap[ posx + selected_tetro[cmino][0] ][ posy + selected_tetro[cmino][1] ] = selected_index;
+            map[ posx + selected_tetro[cmino][0] ][ posy + selected_tetro[cmino][1] ] = selected_index;
         }
         Check_full_line();
         New_tetro();
@@ -203,7 +203,7 @@ void Tetris::Tetris_game()
     speed = 50;
     run = true;
     gameover = false;
-    memset(intmap, -1, sizeof(intmap));
+    memset(map, -1, sizeof(map));
 
     New_tetro();
     

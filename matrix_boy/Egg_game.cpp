@@ -6,7 +6,7 @@ void Egg::Egg_print()
     {
         for(size_t cx = 0; cx < mapx; cx++)
         {
-            matrix.drawPixel(cx, cy, egg_colors[ intmap[cx][cy] ]);
+            matrix.drawPixel(cx, cy, egg_colors[ map[cx][cy] ]);
         }   
     }
     matrix.drawFastHLine(pos_pad, mapy -1, pad_size, pad_color);
@@ -18,7 +18,7 @@ void Egg::Egg_game()
     extern bool gyro_mode;
     run = true;
     gameover = false;
-    memset(intmap, 0, sizeof(intmap));
+    memset(map, 0, sizeof(map));
     pos_pad = 0;
     speed = 25;
     spawnrate = 4;
@@ -26,29 +26,29 @@ void Egg::Egg_game()
 
     while(run)
     {
-        intmap[ random(mapx) ][0] = random(1, egg_color_num);
+        map[ random(mapx) ][0] = random(1, egg_color_num);
 
         for(size_t rounds = 0; rounds < spawnrate && run; rounds++)
         {
-            for(int cy = mapy - 2; cy >= 0; cy--)
+            for(int8_t cy = mapy - 2; cy >= 0; cy--)
             {
                 for(size_t cx = 0; cx < mapx; cx++)
                 {
-                    if(intmap[cx][cy] != 0)
+                    if(map[cx][cy] != 0)
                     {
-                        intmap[cx][cy + 1] = intmap[cx][cy];
-                        intmap[cx][cy] = 0;
+                        map[cx][cy + 1] = map[cx][cy];
+                        map[cx][cy] = 0;
                     }
                 }
             }
 
             for (size_t i = 0; i < mapx; i++)
             {
-                if(intmap[i][mapy - 1] != 0)
+                if(map[i][mapy - 1] != 0)
                 {
                     if(pos_pad <= i && i < pos_pad + pad_size)
                     {
-                        intmap[i][mapy - 1] = 0;
+                        map[i][mapy - 1] = 0;
                         points++;
                         speed = max(10, 15 - points);
                     }

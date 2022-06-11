@@ -5,33 +5,32 @@ void Snake_game()
     matrix.clear();
 
     //config
-    const int def_length = 3;
+    const byte def_length = 3;
     const bool screen_warp = true;
 
-    const uint32_t color_snake = matrix.Color(0, 255, 0);
-    const uint32_t color_head = matrix.Color(255, 255, 0);
-    const uint32_t color_food = matrix.Color(255, 0, 0);
-    const uint32_t color_background = matrix.Color(0, 0, 0);
+    const uint16_t color_snake = matrix.Color(0, 255, 0);
+    const uint16_t color_head = matrix.Color(255, 255, 0);
+    const uint16_t color_food = matrix.Color(255, 0, 0);
+    const uint16_t color_background = matrix.Color(0, 0, 0);
 
     //create varriables
-    int intmap[mapx][mapy];
-    int posx, posy, dir;
-    bool run, gameover;
-    posx = random(mapx);
-    posy = random(mapy);
-    dir = random(4);
-    run = true;
-    gameover = false;
+    byte map[mapx][mapy];
+    byte posx = random(mapx);
+    byte posy = random(mapy);
+    byte dir = random(4);
 
-    int snakelength = 0;
+    bool run = true;
+    bool gameover = false;
 
-    int foodx = random(mapx);
-    int foody = random(mapy);
-    int dir_input = 0;
+    byte snakelength = 0;
+
+    byte foodx = random(mapx);
+    byte foody = random(mapy);
+    byte dir_input = 0;
 
     extern bool gyro_mode;
 
-    memset(intmap, 0, sizeof(intmap));
+    memset(map, 0, sizeof(map));
 
     while (run && !gameover)
     {
@@ -88,17 +87,17 @@ void Snake_game()
             }
         }
 
-        if (intmap[posx][posy] > 0)
+        if (map[posx][posy] > 0)
         {
             run = false;
             gameover = true;
         }
 
-        intmap[posx][posy] = 1;
+        map[posx][posy] = 1;
 
         if (posx == foodx && posy == foody)
         {
-            while (intmap[foodx][foody] != 0)
+            while (map[foodx][foody] != 0)
             {
                 foodx = random(mapx);
                 foody = random(mapy);
@@ -110,18 +109,18 @@ void Snake_game()
         {
             for (size_t cx = 0; cx < mapx; cx++)
             {
-                if (intmap[cx][cy] > 0)
+                if (map[cx][cy] > 0)
                 {
                     if(cx == posx && cy == posy) 
                         matrix.drawPixel(cx, cy, color_head);
                     else
                         matrix.drawPixel(cx, cy, color_snake);
                     
-                    intmap[cx][cy]++;
+                    map[cx][cy]++;
 
-                    if (intmap[cx][cy] > snakelength + def_length)
+                    if (map[cx][cy] > snakelength + def_length)
                     {
-                        intmap[cx][cy] = 0;
+                        map[cx][cy] = 0;
                     }
                 }
                 else if (cx == foodx && cy == foody)
@@ -152,8 +151,8 @@ void Snake_game()
 
             if(gyro_mode)
             {
-                int gyx = gyro_xmove(0, 10);
-                int gyy = gyro_ymove(0, 10);
+                byte gyx = gyro_xmove(0, 10);
+                byte gyy = gyro_ymove(0, 10);
                 if(gyx >= 8) dir_input = 0;
                 if(gyx <= 2) dir_input = 1;
                 if(gyy >= 8) dir_input = 2;

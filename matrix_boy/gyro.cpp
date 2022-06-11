@@ -5,7 +5,7 @@
 #define INT16MAX 65536
 #define INT16MIN -65535
 
-const int MPU=0x68; 
+const byte MPU=0x68; 
 int16_t AcX,AcY,AcZ,GyX,GyY,GyZ;
 
 extern int16_t GyX_U_max, GyX_D_max;
@@ -82,11 +82,11 @@ void gyro_app() {
     bool run = true;
     bool gyro_or_accel_mode = true;
 
-    const uint32_t x_color = matrix.Color(255, 0, 0);
-    const uint32_t y_color = matrix.Color(0, 255, 0);
-    const uint32_t z_color = matrix.Color(0, 0, 255);
-    const uint32_t dot_color = matrix.Color(255, 170, 0);
-    const uint32_t sens_color = matrix.Color(255, 0, 255);
+    const uint16_t x_color = matrix.Color(255, 0, 0);
+    const uint16_t y_color = matrix.Color(0, 255, 0);
+    const uint16_t z_color = matrix.Color(0, 0, 255);
+    const uint16_t dot_color = matrix.Color(255, 170, 0);
+    const uint16_t sens_color = matrix.Color(255, 0, 255);
     
     Serial.println(gyro_or_accel_mode? "Gyroscope mode\nGyX\tGyY\tGyZ" : "Accelerometer mode\nAcX\tAcY\tAcZ");
 
@@ -185,7 +185,7 @@ void gyro_app() {
     }
 }
 
-int gyro_xmove(int min, int max)
+int16_t gyro_xmove(int16_t min, int16_t max)
 {
     gyro_read();
     return map( 
@@ -197,7 +197,7 @@ int gyro_xmove(int min, int max)
     );
 }
 
-int gyro_ymove(int min, int max)
+int16_t gyro_ymove(int16_t min, int16_t max)
 {
     gyro_read();
     return map(

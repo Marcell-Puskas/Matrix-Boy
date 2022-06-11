@@ -1,6 +1,6 @@
 #include "ballgames.h"
 
-void Breakout::hit_log(int moveX, int moveY, int f = 0)
+void Breakout::hit_log(byte moveX, byte moveY, byte f = 0)
 {
     Serial.print("hits: ");
     Serial.print(hits);
@@ -32,7 +32,7 @@ void Breakout::hit_log(int moveX, int moveY, int f = 0)
     
 }
 
-bool Breakout::check_move(int nextX, int nextY)
+bool Breakout::check_move(byte nextX, byte nextY)
 {
     if(!(0 <= nextX && nextX < mapx))
     {

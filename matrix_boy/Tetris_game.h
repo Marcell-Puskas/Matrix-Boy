@@ -5,11 +5,11 @@
 
 class Tetris {
 private:
-    const int tetro_num = 7;
-    const int mino_num = 4;
-    const int clear_time = 400;
+    const byte tetro_num = 7;
+    const byte mino_num = 4;
+    const uint16_t clear_time = 400;
 
-    const int tetro_cordinates[7][4][2] = {
+    const byte tetro_cordinates[7][4][2] = {
         {{0, 1}, {1, 1}, {2, 1}, {3, 1}},
         {{0, 0}, {0, 1}, {1, 1}, {2, 1}},
         {{2, 0}, {0, 1}, {1, 1}, {2, 1}},
@@ -19,7 +19,7 @@ private:
         {{0, 0}, {1, 0}, {1, 1}, {2, 1}}
     };
 
-    const int tetro_offsets[7][2] = {
+    const byte tetro_offsets[7][2] = {
         {3, 3},
         {2, 2},
         {2, 2},
@@ -29,7 +29,7 @@ private:
         {2, 2}
     };
 
-    const uint32_t tetro_colors[7] = {
+    const uint16_t tetro_colors[7] = {
         matrix.Color(0, 255, 255),
         matrix.Color(0, 0, 255),
         matrix.Color(255, 170, 0),
@@ -39,23 +39,25 @@ private:
         matrix.Color(255, 0, 0)
     };
 
-    const uint32_t background_color = matrix.Color(0, 0, 0);
-    const uint32_t full_line_color = matrix.Color(255, 255, 255);
+    const uint16_t background_color = matrix.Color(0, 0, 0);
+    const uint16_t full_line_color = matrix.Color(255, 255, 255);
 
-    int posx, posy, dir, selected_index, points, speed;
+    int8_t posx, posy;
+    uint16_t points;
+    byte dir, selected_index, speed;
     bool run, gameover;
 
     long gyro_down_timeout = 0;
-    long gyro_down_speed = 30;
+    uint16_t gyro_down_speed = 30;
 
-    int selected_tetro[4][2];
-    int construncted_tetro[4][2];
-    int intmap[mapx][mapy];
+    byte selected_tetro[4][2];
+    byte construncted_tetro[4][2];
+    int8_t map[mapx][mapy];
 
-    void Construct_tetro(int cdir, bool select);
+    void Construct_tetro(byte cdir, bool select);
     void New_tetro();
     void Tetris_print();
-    bool check_move(int nextX, int nextY, int nextDir);
+    bool check_move(int8_t nextX, int8_t nextY, byte nextDir);
     void Update_input();
     void Check_full_line();
     void Check_gameover();

@@ -5,20 +5,20 @@
 
 class Paint {
     private:
-    int map[mapx][mapy];
-    int posx = 0; 
-    int posy = 0;
+    byte map[mapx][mapy];
+    byte posx = 0; 
+    byte posy = 0;
     bool run = true;
     bool brush = false;
-    int selected_color = 0;
+    byte selected_color = 0;
     bool selecting_menu = false;
 
     bool cursor_blink = false;
     long last_blink = 0;
-    int blink_dur = 200;
+    byte blink_dur = 200;
 
-    static const int colornum = 8;
-    uint32_t colors[colornum] = {
+    static const byte colornum = 8;
+    uint16_t colors[colornum] = {
         matrix.Color(255, 0, 0),
         matrix.Color(255, 255, 0),
         matrix.Color(0, 255, 0),
@@ -28,8 +28,8 @@ class Paint {
         matrix.Color(255, 255, 255),
         0
     };
-    uint32_t border_color = matrix.Color(255, 255, 255);
-    uint32_t cursor_color = matrix.Color(255, 255, 255);
+    uint16_t border_color = matrix.Color(255, 255, 255);
+    uint16_t cursor_color = matrix.Color(255, 255, 255);
 
     void print();
 

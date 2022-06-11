@@ -1,8 +1,8 @@
 #include "matrix_boy_IO.h"
 
 extern bool gyro_mode;
-long xtime, ytime, btime;
-long blasttime;
+unsigned long xtime, ytime, btime;
+unsigned long blasttime;
 bool b_pressed = false;
 
 extern int freeMemory();

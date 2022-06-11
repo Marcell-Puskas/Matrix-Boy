@@ -13,18 +13,17 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 1, 2, 6, NEO_TILE_TOP, NEO_
 //matrixWidth, matrixHeight, tilesX, tilesY, pin, matrixType, ledType
 
 //static const
-const int app_count = 9;
-const int anim_speed = 25;
+const byte app_count = 9;
+const byte anim_speed = 25;
 
-const int xcenter = mapx / 2 - iwidth / 2;
-const int ycenter = mapy / 2 - iheight / 2;
+const byte xcenter = mapx / 2 - iwidth / 2;
+const byte ycenter = mapy / 2 - iheight / 2;
 
-int bright = 2;
+byte bright = 2;
 
-int selected_game = 0;
+byte selected_game = 0;
 
-int up_timeout, down_timeout, left_timeout, right_timeout, button_timeout;
-int timeout_x, timeout_y, timeout_b;
+byte up_timeout, down_timeout, left_timeout, right_timeout, button_timeout;
 bool pause_menu;
 bool gyro_mode = false;
 char keychar;
@@ -39,7 +38,7 @@ int16_t *settings[] = {
     &GyY_L_max, &GyY_R_max
 };
 
-void call_game(int game_index) {
+void call_game(byte game_index) {
     switch (game_index)
     {
         case 0:

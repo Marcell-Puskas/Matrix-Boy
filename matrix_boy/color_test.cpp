@@ -1,9 +1,9 @@
 #include "matrix_boy_IO.h"
 
-int index = 0;
-int r = 0;
-int g = 0;
-int b = 255;
+uint16_t index = 0;
+uint16_t r = 0;
+uint16_t g = 0;
+uint16_t b = 255;
 uint16_t c;
 
 void drawcolor()

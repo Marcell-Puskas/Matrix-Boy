@@ -5,11 +5,11 @@
 
 class Egg {
     private:
-    const int egg_color_num = 5;
-    const int pad_size = 3;
+    const byte egg_color_num = 5;
+    const byte pad_size = 3;
 
-    const uint32_t pad_color = matrix.Color(255, 255, 255);
-    const uint32_t egg_colors[6] = {
+    const uint16_t pad_color = matrix.Color(255, 255, 255);
+    const uint16_t egg_colors[6] = {
         0,
         matrix.Color(255, 0, 0),
         matrix.Color(255, 255, 0),
@@ -18,10 +18,10 @@ class Egg {
         matrix.Color(0, 0, 255),
     };
 
-    int spawnrate, pos_pad;
+    byte spawnrate, pos_pad;
 
-    int points, speed;
-    int intmap[mapx][mapy];
+    byte points, speed;
+    int map[mapx][mapy];
     bool run, gameover;
 
     void Egg_print();

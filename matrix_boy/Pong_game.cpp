@@ -1,6 +1,6 @@
 #include "ballgames.h"
 
-bool Pong::check_pong_move(int nextX, int nextY)
+bool Pong::check_pong_move(byte nextX, byte nextY)
 {
     if(!(0 <= nextX && nextX < mapx))
     {

@@ -1,11 +1,11 @@
 #include "matrix_boy_IO.h"
 
-extern int bright;
-const  int max_bright = 16;
+extern byte bright;
+const  byte max_bright = 16;
 
 void Brightness_selector()
 {
-    const uint32_t color_slide = matrix.Color(255, 255, 255);
+    const uint16_t color_slide = matrix.Color(255, 255, 255);
     bool run = true;
     pause_menu = false;
 
