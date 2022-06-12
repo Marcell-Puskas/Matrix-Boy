@@ -97,7 +97,7 @@ void call_game(byte game_index) {
 void setup() {
     matrix.begin();
     matrix.setBrightness(bright);
-    Serial.begin(9600);
+    Serial.begin(115200);
     Serial.println("MatrixBoy Running");
     pinMode(JOYB, INPUT_PULLUP);
     gyro_setup();

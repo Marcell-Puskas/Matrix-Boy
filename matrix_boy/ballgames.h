@@ -19,7 +19,8 @@ class Ballgames {
 
     bool move_done;
 
-    byte posx, posy, dir, speed;
+    int8_t posx, posy;
+    byte dir, speed;
     bool run, gameover, win;
 
 };
@@ -44,11 +45,12 @@ class Breakout: public Ballgames {
 
     bool bricks_map[coloums][rows];
     
-    bool check_move(byte nextX, byte nextY);
-    void hit_log(byte nextX, byte nextY, byte f);
+    bool check_move(int8_t nextX, int8_t nextY);
+    void hit_log(int8_t nextX, int8_t nextY);
     void print();
+    uint8_t forspeed();
 
-    bool testmode = false;
+    bool testmode = true;
 
     byte hits;
 

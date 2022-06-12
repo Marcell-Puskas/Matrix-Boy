@@ -1,6 +1,6 @@
 #include "ballgames.h"
 
-void Breakout::hit_log(byte moveX, byte moveY, byte f = 0)
+void Breakout::hit_log(int8_t moveX, int8_t moveY)
 {
     if(testmode)
     {
@@ -14,29 +14,34 @@ void Breakout::hit_log(byte moveX, byte moveY, byte f = 0)
         Serial.print(moveX);
         Serial.print("  moveY: ");
         Serial.print(moveY);
-        Serial.print("  function number: ");
-        Serial.print(f);
         Serial.print("  hits: ");
         Serial.println(hits);
 
         print();
 
-        while (keychar != 'e')
+        /* while (keychar != 'o')
         {
             delay(10);
             Input();
-        }
+        } */
     }
     
 }
 
-bool Breakout::check_move(byte nextX, byte nextY)
+uint8_t Breakout::forspeed()
 {
+    return ( 100 + (all_bricks - hits) * 3 ) / input_update;
+}
+
+bool Breakout::check_move(int8_t nextX, int8_t nextY)
+{
+    hit_log(nextX, nextY);
+
     if(!(0 <= nextX && nextX < mapx))
     {
         dir = bounce_vertical[dir];
     }
-    else if(!(0 <= nextY))
+    else if(0 > nextY)
     {
         dir = bounce_horisontal[dir];
     }
@@ -49,14 +54,12 @@ bool Breakout::check_move(byte nextX, byte nextY)
             bricks_map[nextX / 2][posy] = true;
             bricks_map[posx / 2][nextY] = true;
             hits += 2;
-            hit_log(nextX, nextY, 1);
         }
         else if(!bricks_map[nextX / 2][posy] && nextY < rows - 1)
         {
             dir = bounce_vertical[dir];
             bricks_map[nextX / 2][posy] = true;
             hits++;
-            hit_log(nextX, nextY, 2);
         }
     
         else if(!bricks_map[posx / 2][nextY])
@@ -64,14 +67,12 @@ bool Breakout::check_move(byte nextX, byte nextY)
             dir = bounce_horisontal[dir];
             bricks_map[posx / 2][nextY] = true;
             hits++;
-            hit_log(nextX, nextY, 3);
         }
         else if(!bricks_map[nextX / 2][nextY])
         {
             dir = bounce_corner[dir];
             bricks_map[nextX / 2][nextY] = true;
             hits++;
-            hit_log(nextX, nextY, 4);
         }
         else return true;
     }
@@ -129,7 +130,7 @@ void Breakout::Breakout_game()
     {
         print();
 
-        for (size_t i = 0; i < 5 + (all_bricks - hits); i++)
+        for (size_t i = 0; i < forspeed(); i++)
         {
             Input();
             switch (keychar)
