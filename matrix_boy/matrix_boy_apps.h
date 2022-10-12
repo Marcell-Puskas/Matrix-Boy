@@ -180,13 +180,18 @@ const uint16_t color_bmp[] PROGMEM = {
     0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff
 };
 
-const uint16_t *icons[] = {
+const byte game_count = 6;
+const uint16_t *game_icons[] = {
     snake_bmp,
     tetris_bmp,
     breakout_bmp,
     pong_bmp,
     egg_bmp,
-    paint_bmp,
+    paint_bmp
+};
+
+const byte setting_count = 3;
+const uint16_t *setting_icons[] = {
     brightness_bmp,
     gyro_bmp,
     color_bmp
