@@ -8,13 +8,17 @@ class Menu
 private:
     const byte anim_speed = 25;
 
-    byte selected_game = 0;
+    int8_t selected_game = 0;
 
     byte xcenter;
     byte ycenter;
-    //bool run = true;
+
+    const char secret_code[10] = "odadassww";//"ondnandnansnsnwnwn";  //wwssadado    
+                                //odadassww
+    char last_key;                  
+    char input_code[10];
 public:
-    byte menu(
+    int8_t menu(
         const byte app_count, 
         const byte iwidth, 
         const byte iheight,

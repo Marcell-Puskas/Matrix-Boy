@@ -15,6 +15,8 @@ const bool b_up = 1;
 
 void Input(bool no_timeout = false);
 void gyro_read();
+void reset_timeouts();
+
 int16_t gyro_xmove(int16_t min, int16_t max);
 int16_t gyro_ymove(int16_t min, int16_t max);
 

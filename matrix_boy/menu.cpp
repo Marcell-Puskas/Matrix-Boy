@@ -1,11 +1,37 @@
 #include "menu.h"
 
-byte Menu::menu(const byte app_count, const byte iwidth, const byte iheight, const uint16_t *icons[]) {
+int8_t Menu::menu(const byte app_count, const byte iwidth, const byte iheight, const uint16_t *icons[]) {
     xcenter = mapx / 2 - iwidth / 2;
     ycenter = mapy / 2 - iheight / 2;
 
+    input_code[9] = '\0';
+
+    keychar = 'n';
+
     while (true)
     {
+        if(keychar != last_key && keychar != 'n')
+        {
+            for (size_t i = sizeof(input_code) - 2; i > 0; i--)
+            {
+                input_code[i] = input_code[i - 1];
+            }
+            input_code[0] = keychar;
+
+            Serial.println();
+            for (size_t i = 0; i < sizeof(input_code); i++)
+            {
+                Serial.print(input_code[i]);
+            }
+            
+            if(strcmp(input_code, secret_code) == 0)
+            {
+                Serial.println("secret code enterd!"); 
+                return -2;
+            }
+        }
+        last_key = keychar;
+        
         switch (keychar)
         {
             case 'a':
@@ -33,8 +59,13 @@ byte Menu::menu(const byte app_count, const byte iwidth, const byte iheight, con
             break;
 
             case 'o':
+            keychar = 'n';
             //run = false;
             return selected_game;
+            break;
+
+            case 'e':
+            return -1;
             break;
         }
 

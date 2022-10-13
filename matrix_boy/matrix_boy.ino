@@ -15,7 +15,7 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 1, 2, 6, NEO_TILE_TOP, NEO_
 
 byte bright = 2;
 
-byte selected_game = 0;
+int8_t select = 0;
 
 byte up_timeout, down_timeout, left_timeout, right_timeout, button_timeout;
 bool pause_menu;
@@ -32,7 +32,8 @@ int16_t *settings[] = {
     &GyY_L_max, &GyY_R_max
 };
 
-void call_game(byte game_index) {
+void call_game(int8_t game_index) {
+    Serial.print("b");
     switch (game_index)
     {
         case 0:
@@ -73,18 +74,23 @@ void call_game(byte game_index) {
             P.Paint_app();
         }
         break;
+    }
+}
 
-        /* case 6:
+void call_setting(int8_t setting_index) {
+    switch (setting_index)
+    {
+        case 0:
         Brightness_selector();
         break;
 
-        case 7:
+        case 1:
         gyro_app();
         break;
 
-        case 8:
+        case 2:
         color_test();
-        break; */
+        break; 
     }
 }
 
@@ -99,13 +105,22 @@ void setup() {
 }
 
 void loop() {
-    up_timeout = default_timeout;
-    down_timeout = default_timeout;
-    left_timeout = default_timeout;
-    right_timeout = default_timeout;
-    button_timeout = default_timeout;
-    pause_menu = true;
-    call_game(selected_game);
-    Menu M;
-    selected_game = M.menu(game_count, iwidth, iheight, game_icons);
+    Serial.println(freeMemory());
+
+    reset_timeouts();
+
+    if(select == -2) {
+        while (select != -1) {
+            Menu Settings;
+            select = Settings.menu(setting_count, iwidth, iheight, setting_icons);
+            if(select >= 0) call_setting(select);
+        }
+        
+    }
+    else {
+        Menu Games;
+        select = Games.menu(game_count, iwidth, iheight, game_icons);
+        Serial.print(select);
+        if(select >= 0) call_game(select);
+    }
 }

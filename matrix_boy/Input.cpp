@@ -97,3 +97,12 @@ void Input(bool no_timeout)
         blasttime = millis();
     }
 }
+
+void reset_timeouts() {
+    up_timeout = default_timeout;
+    down_timeout = default_timeout;
+    left_timeout = default_timeout;
+    right_timeout = default_timeout;
+    button_timeout = default_timeout;
+    pause_menu = true;
+}
