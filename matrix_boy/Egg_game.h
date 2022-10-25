@@ -24,6 +24,8 @@ class Egg {
     int map[mapx][mapy];
     bool run, gameover;
 
+    void Catch();
+    void Checkgameover();
     void Egg_print();
 
     public:

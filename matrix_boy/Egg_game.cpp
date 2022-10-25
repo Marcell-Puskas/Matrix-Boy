@@ -13,6 +13,34 @@ void Egg::Egg_print()
     matrix.show();
 }
 
+void Egg::Catch()
+{
+    for (size_t i = 0; i < mapx; i++)
+    {
+        if(map[i][mapy - 1] != 0)
+        {
+            if(pos_pad <= i && i < pos_pad + pad_size)
+            {
+                map[i][mapy - 1] = 0;
+                points++;
+                speed = max(10, 15 - points);
+            }
+        }
+    }
+}
+
+void Egg::Checkgameover()
+{
+    for (size_t i = 0; i < mapx; i++)
+        if (map[i][mapy - 1] != 0)
+            if (not(pos_pad <= i && i < pos_pad + pad_size))
+            {
+                run = false;
+                gameover = true;
+            }
+
+}
+
 void Egg::Egg_game()
 {
     extern bool gyro_mode;
@@ -42,24 +70,6 @@ void Egg::Egg_game()
                 }
             }
 
-            for (size_t i = 0; i < mapx; i++)
-            {
-                if(map[i][mapy - 1] != 0)
-                {
-                    if(pos_pad <= i && i < pos_pad + pad_size)
-                    {
-                        map[i][mapy - 1] = 0;
-                        points++;
-                        speed = max(10, 15 - points);
-                    }
-                    else
-                    {
-                        run = false;
-                        gameover = true;
-                    }
-                }
-            }
-
             for (size_t i = 0; i < speed; i++)
             {
                 Input();
@@ -74,9 +84,12 @@ void Egg::Egg_game()
                     pos_pad = gyro_xmove(0, mapx - pad_size);
                     
                 }
+                Catch();
                 Egg_print();
                 delay(input_update);
             }
+            Checkgameover();
+
         }
     }
 
