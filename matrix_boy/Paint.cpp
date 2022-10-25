@@ -2,7 +2,7 @@
 
 void Paint::Paint_app() {
     pause_menu = false;
-    memset(map, -1, sizeof(map));
+    memset(map, colornum - 1, sizeof(map));
 
     up_timeout = 150;
     down_timeout = 150;
