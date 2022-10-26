@@ -67,6 +67,7 @@ class Pong: public Ballgames {
     byte required_atacks;
 
     bool check_pong_move(byte nextX, byte nextY);
+    void Enemy_move();
 
     public:
     void Pong_game();

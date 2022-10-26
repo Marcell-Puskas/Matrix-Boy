@@ -14,6 +14,7 @@ bool Pong::check_pong_move(byte nextX, byte nextY)
             if(posx - pad_pos == 0) dir = 2;
             else if(posx - pad_pos == pad_size - 1) dir = 1;
             else dir = bounce_horisontal[dir];
+            speed = max(10, speed - 1);
         }
         else
         {
@@ -37,6 +38,28 @@ bool Pong::check_pong_move(byte nextX, byte nextY)
     }
     else return true;
     return false;
+}
+
+void Pong::Enemy_move()
+{
+    Serial.print(atack_cycle);
+    Serial.print("\t");
+    Serial.println(dir);
+    if(dir == 0 || dir == 3 && atack_cycle < required_atacks)
+    {
+        if(enemy_pos < posx - 1)
+        {
+            enemy_pos = max(0, min(mapx - enemy_size, enemy_pos + 1));
+        }
+        else if(enemy_pos > posx - 1)
+        {
+            enemy_pos = max(0, min(mapx - enemy_size, enemy_pos - 1));
+        }
+    }
+    else
+    {
+        enemy_pos = max(0, min(mapx - enemy_size, enemy_pos + random(-1, 1)));
+    }
 }
 
 void Pong::Pong_game()
@@ -121,16 +144,7 @@ void Pong::Pong_game()
                     break;
             }
         }
-        Serial.print(atack_cycle);
-        Serial.print("\t");
-        Serial.println(dir);
-        if(dir == 0 || dir == 3 && atack_cycle < required_atacks)
-        {
-            enemy_pos = max(0, min(mapx - enemy_size, posx - 1));
-        }
-        else
-        {
-            enemy_pos = max(0, min(mapx - enemy_size, enemy_pos + random(-1, 1)));
-        }
+
+        Enemy_move();
     }
 }
